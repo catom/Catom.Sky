@@ -24,5 +24,11 @@ namespace Catom.Sky.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
         }
+
+        protected void Application_Shutdown()
+        {
+
+        }
+
     }
 }

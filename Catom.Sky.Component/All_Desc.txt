@@ -1,0 +1,101 @@
+﻿
+【目标】
+1. [学习] 对schoolpal项目进行web架构层次学习；
+2. [造轮] 仿造 http://www.cnblogs.com/mzwhj/p/3590976.html mvc5 实例建构一个简单网站；
+
+
+【规划】
+1. web 各层目录及类、配置文件的功能了解；
+2. 实例的架构流程、各层的实现方式；
+
+
+【细化-sp】
+1. 文件夹
+	/App_Data/
+		多媒体文件
+	/App_Start/
+		启动配置项：
+		
+		
+	/Content/
+		css文件（目录可改）
+	/Scripts/
+		js文件（可以css等文件夹合并）
+	/Images/
+		图片文件（可与上合并）
+		
+	/Controllers/
+		Controller/action
+	/Filters/
+		过滤器
+	/Models/
+		视图层模型
+	/Views/
+		视图层cshtml
+	/Areas
+		在已有的项目中注入一个新的web区域（web小分支）
+	/自定义文件夹，如 Helpers、Security、Widget等
+		
+		
+2. 配置相关
+	相关文件
+	/App_Start/**、Global.asax、Web.config
+	
+	Global.asax
+		站点接入配置，项目启动前在IIS服务器上进行的配置注册。
+		注册项：
+			1. Area
+			2. Config（App_Start中所有的启动配置项）
+			3. 其他初始注入（如 unity、log等）
+	
+	Web.config
+		站点的参数配置。
+		主要配置节点：
+			1. configSections	
+				插件配置	name-type
+			2. connectionStrings
+				DB 配置		name-connectionString
+			3. appSettings
+				项目参数	key-value
+		
+3. Web项目执行过程
+	Global.asax.cs	——	WebApiConfig(Web.config)		——	Controllers&Views
+						RouteConfig
+						FilterConfig(/Filters/XXFilter)
+						AreaRegistration(/Areas/XXArea)
+	特例：XXConfig.cs:
+		[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(SchoolPal.Web.App_Start.UnityWebActivator), "Start")]
+		[assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(SchoolPal.Web.App_Start.UnityWebActivator), "Shutdown")]
+						
+4. [承上]从业务逻辑层角度梳理一条执行过程
+		
+		
+		
+		
+【细化-member】
+1. 架构流程
+	数据访问层接口(IDAL)——>数据访问层(DAL)——>业务逻辑层接口(IBLL)——>业务逻辑层(BLL)——>视图层(View)
+	
+2. 相关实现技术
+	IoC——Unity|AutoFac; DB——Dapper&MySql;
+
+3. 配置相关
+
+
+4. 具体实现
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

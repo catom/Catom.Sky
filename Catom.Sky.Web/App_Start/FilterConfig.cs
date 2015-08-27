@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
+using Catom.Sky.Web.Filters;
 
 namespace Catom.Sky.Web
 {
@@ -7,7 +8,9 @@ namespace Catom.Sky.Web
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            // DESC 此处添加过滤器
+            filters.Add(new MyExceptionFilter());
+            //filters.Add(new HandleErrorAttribute());
         }
     }
 }

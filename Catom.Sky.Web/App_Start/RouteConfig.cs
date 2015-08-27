@@ -13,6 +13,28 @@ namespace Catom.Sky.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            // NDesc：
+            //      name 是路由的名称，并无数据意义；
+            //      url 是http端口后面的URL格式，如 http://localhost:1234/demo 中的demo，并且{}中的值可作为Request参数；    
+            //      default 默认入口action及参数格式。
+            //      多组路由映射，按序匹配。
+
+
+            // 1. 登陆路由（登陆后将Section参数传入SwitchIndex，进行判断并直接跳转）
+            routes.MapRoute(
+                name: "CatomLogin",
+                url: "{Section}",
+                defaults: new { controller = "Catom", action = "SwitchIndex", id = UrlParameter.Optional }
+            );
+
+            // 2. 首页路由
+            routes.MapRoute(
+                name: "CatomIndex",
+                url: "{Section}/Catom",
+                defaults: new { controller = "Catom", action = "Index", id = UrlParameter.Optional }
+            );
+
+            // 3. 默认路由
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
