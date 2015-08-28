@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>bbfb8960-7fae-483f-8862-8589361d2e63</ProjectGuid>
+    <ProjectGuid>{78AFAAA2-BB0C-46E5-9A84-7284C9C7CF69}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Catom.Sky.WindowsService</RootNamespace>

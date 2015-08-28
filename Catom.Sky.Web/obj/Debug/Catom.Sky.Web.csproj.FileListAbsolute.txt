@@ -99,3 +99,16 @@ D:\GitSpace\Catom.Sky\Catom.Sky.Web\bin\zh-Hant\System.Spatial.resources.dll
 D:\GitSpace\Catom.Sky\Catom.Sky.Web\obj\Debug\Catom.Sky.Web.csprojResolveAssemblyReference.cache
 D:\GitSpace\Catom.Sky\Catom.Sky.Web\obj\Debug\Catom.Sky.Web.dll
 D:\GitSpace\Catom.Sky\Catom.Sky.Web\obj\Debug\Catom.Sky.Web.pdb
+D:\GitSpace\Catom.Sky\Catom.Sky.Web\bin\Catom.Sky.Component.dll
+D:\GitSpace\Catom.Sky\Catom.Sky.Web\bin\Catom.Sky.Services.dll
+D:\GitSpace\Catom.Sky\Catom.Sky.Web\bin\Microsoft.Practices.Unity.Configuration.dll
+D:\GitSpace\Catom.Sky\Catom.Sky.Web\bin\Microsoft.Practices.Unity.dll
+D:\GitSpace\Catom.Sky\Catom.Sky.Web\bin\Microsoft.Practices.Unity.Mvc.dll
+D:\GitSpace\Catom.Sky\Catom.Sky.Web\bin\Microsoft.Practices.Unity.RegistrationByConvention.dll
+D:\GitSpace\Catom.Sky\Catom.Sky.Web\bin\WebActivatorEx.dll
+D:\GitSpace\Catom.Sky\Catom.Sky.Web\bin\Catom.Sky.Component.pdb
+D:\GitSpace\Catom.Sky\Catom.Sky.Web\bin\Catom.Sky.Services.pdb
+D:\GitSpace\Catom.Sky\Catom.Sky.Web\bin\Microsoft.Practices.Unity.xml
+D:\GitSpace\Catom.Sky\Catom.Sky.Web\bin\Microsoft.Practices.Unity.Configuration.xml
+D:\GitSpace\Catom.Sky\Catom.Sky.Web\bin\Microsoft.Practices.Unity.Mvc.xml
+D:\GitSpace\Catom.Sky\Catom.Sky.Web\bin\Microsoft.Practices.Unity.RegistrationByConvention.xml

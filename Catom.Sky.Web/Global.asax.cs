@@ -16,13 +16,15 @@ namespace Catom.Sky.Web
     {
         protected void Application_Start()
         {
+            // 注册区域
             AreaRegistration.RegisterAllAreas();
 
+            // 注册配置类
             WebApiConfig.Register(GlobalConfiguration.Configuration);
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);  // 过滤配置，如异常、鉴权过滤等（FilterAttribute, IAuthorizationFilter）。
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
-            AuthConfig.RegisterAuth();
+            BundleConfig.RegisterBundles(BundleTable.Bundles);  // 将css、js文件压缩打包成一个文件，提高请求效率。
+            AuthConfig.RegisterAuth();  // 外站点账号鉴权注册。
         }
 
         protected void Application_Shutdown()

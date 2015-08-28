@@ -1,0 +1,6 @@
+D:\GitSpace\Catom.Sky\Catom.Sky.WindowsService\bin\Debug\Catom.Sky.WindowsService.exe.config
+D:\GitSpace\Catom.Sky\Catom.Sky.WindowsService\bin\Debug\Catom.Sky.WindowsService.exe
+D:\GitSpace\Catom.Sky\Catom.Sky.WindowsService\bin\Debug\Catom.Sky.WindowsService.pdb
+D:\GitSpace\Catom.Sky\Catom.Sky.WindowsService\obj\Debug\Catom.Sky.WindowsService.csprojResolveAssemblyReference.cache
+D:\GitSpace\Catom.Sky\Catom.Sky.WindowsService\obj\Debug\Catom.Sky.WindowsService.exe
+D:\GitSpace\Catom.Sky\Catom.Sky.WindowsService\obj\Debug\Catom.Sky.WindowsService.pdb
