@@ -112,3 +112,5 @@ D:\GitSpace\Catom.Sky\Catom.Sky.Web\bin\Microsoft.Practices.Unity.xml
 D:\GitSpace\Catom.Sky\Catom.Sky.Web\bin\Microsoft.Practices.Unity.Configuration.xml
 D:\GitSpace\Catom.Sky\Catom.Sky.Web\bin\Microsoft.Practices.Unity.Mvc.xml
 D:\GitSpace\Catom.Sky\Catom.Sky.Web\bin\Microsoft.Practices.Unity.RegistrationByConvention.xml
+D:\GitSpace\Catom.Sky\Catom.Sky.Web\bin\log4net.dll
+D:\GitSpace\Catom.Sky\Catom.Sky.Web\bin\log4net.xml

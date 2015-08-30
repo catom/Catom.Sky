@@ -3,6 +3,5 @@ D:\GitSpace\Catom.Sky\Catom.Sky\Catom.Sky\Catom.Sky\bin\Debug\Catom.Sky.exe.conf
 D:\GitSpace\Catom.Sky\Catom.Sky\bin\Debug\Catom.Sky.exe.config
 D:\GitSpace\Catom.Sky\Catom.Sky\bin\Debug\Catom.Sky.exe
 D:\GitSpace\Catom.Sky\Catom.Sky\bin\Debug\Catom.Sky.pdb
-D:\GitSpace\Catom.Sky\Catom.Sky\obj\Debug\Catom.Sky.csprojResolveAssemblyReference.cache
 D:\GitSpace\Catom.Sky\Catom.Sky\obj\Debug\Catom.Sky.exe
 D:\GitSpace\Catom.Sky\Catom.Sky\obj\Debug\Catom.Sky.pdb

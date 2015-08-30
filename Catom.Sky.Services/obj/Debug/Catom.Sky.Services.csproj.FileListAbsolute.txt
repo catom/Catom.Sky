@@ -1,5 +1,4 @@
 D:\GitSpace\Catom.Sky\Catom.Sky.Services\bin\Debug\Catom.Sky.Services.dll
 D:\GitSpace\Catom.Sky\Catom.Sky.Services\bin\Debug\Catom.Sky.Services.pdb
-D:\GitSpace\Catom.Sky\Catom.Sky.Services\obj\Debug\Catom.Sky.Services.csprojResolveAssemblyReference.cache
 D:\GitSpace\Catom.Sky\Catom.Sky.Services\obj\Debug\Catom.Sky.Services.dll
 D:\GitSpace\Catom.Sky\Catom.Sky.Services\obj\Debug\Catom.Sky.Services.pdb
