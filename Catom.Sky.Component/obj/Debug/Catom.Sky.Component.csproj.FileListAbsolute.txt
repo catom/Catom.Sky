@@ -1,4 +1,0 @@
-D:\GitSpace\Catom.Sky\Catom.Sky.Component\bin\Debug\Catom.Sky.Component.dll
-D:\GitSpace\Catom.Sky\Catom.Sky.Component\bin\Debug\Catom.Sky.Component.pdb
-D:\GitSpace\Catom.Sky\Catom.Sky.Component\obj\Debug\Catom.Sky.Component.dll
-D:\GitSpace\Catom.Sky\Catom.Sky.Component\obj\Debug\Catom.Sky.Component.pdb

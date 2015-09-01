@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
-using Microsoft.Practices.Unity.Mvc;
 using Microsoft.Practices.Unity;
+using Microsoft.Practices.Unity.Mvc;
 using Microsoft.Practices.Unity.Configuration;
-using System.Configuration;
-using Catom.Sky.Component;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Catom.Sky.Web.App_Start.WebActivatorConfig), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(Catom.Sky.Web.App_Start.WebActivatorConfig), "Shutdown")]
@@ -72,13 +70,13 @@ namespace Catom.Sky.Web.App_Start
         public static void RegisterTypes(IUnityContainer container)
         {
             // NOTE: To load from web.config uncomment the line below. Make sure to add a Microsoft.Practices.Unity.Configuration to the using statements.
-            container.LoadConfiguration();
+            // container.LoadConfiguration();
 
             // TODO: Register your types here
             #region 新的数据访问方式
             // 读写分离（实例分离），注入 DAL 接口
-            string readConn = ConfigurationManager.ConnectionStrings["CatomSkyRead"].ConnectionString;
-            string writeConn = ConfigurationManager.ConnectionStrings["CatomSkyWrite"].ConnectionString;
+            //string readConn = ConfigurationManager.ConnectionStrings["CatomSkyRead"].ConnectionString;
+            //string writeConn = ConfigurationManager.ConnectionStrings["CatomSkyWrite"].ConnectionString;
             //container.RegisterType(typeof(IUnitOfWork), typeof(DefaultUnitOfWork), "ReadUnitOfWork", new InjectionConstructor(readConn));
             //container.RegisterType(typeof(IUnitOfWork), typeof(DefaultUnitOfWork), "WriteUnitOfWork", new InjectionConstructor(writeConn));
             #endregion

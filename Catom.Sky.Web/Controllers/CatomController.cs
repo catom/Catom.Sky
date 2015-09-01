@@ -9,9 +9,12 @@ namespace Catom.Sky.Web.Controllers
     public class CatomController : BaseController
     {
         // 1. 页面入口
-        public ActionResult SwtchIndex()
+        public ActionResult SwtchIndex(string section)
         {
-
+            if (string.IsNullOrEmpty(section))
+            {
+                return Content("<h3>请输入区域名称！</h3>");
+            }
 
             return RedirectToAction("Index");
         }
@@ -30,6 +33,26 @@ namespace Catom.Sky.Web.Controllers
 
             return View();
         }
-        
+
+        // 导航栏
+        public ActionResult Navigation()
+        {
+
+            return View();
+        }
+
+        // 页脚栏
+        public ActionResult Footer()
+        {
+
+            return View();
+        }
+
+        // 错误页面
+        public ActionResult Error()
+        {
+
+            return View();
+        }
     }
 }

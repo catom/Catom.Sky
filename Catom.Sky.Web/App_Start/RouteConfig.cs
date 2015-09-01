@@ -24,14 +24,14 @@ namespace Catom.Sky.Web
             routes.MapRoute(
                 name: "CatomLogin",
                 url: "{Section}",
-                defaults: new { controller = "Catom", action = "SwitchIndex", id = UrlParameter.Optional }
+                defaults: new { controller = "Catom", action = "SwitchIndex", Section = UrlParameter.Optional }
             );
 
-            // 2. 首页路由
+            // 2. 首页路由（页面框架）
             routes.MapRoute(
                 name: "CatomIndex",
                 url: "{Section}/Catom",
-                defaults: new { controller = "Catom", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Catom", action = "Index", Section = UrlParameter.Optional }
             );
 
             // 3. 默认路由

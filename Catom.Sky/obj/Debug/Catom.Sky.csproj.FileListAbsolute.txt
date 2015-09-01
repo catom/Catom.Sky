@@ -1,7 +1,0 @@
-c:\users\administrator\documents\visual studio 2013\Projects\Catom.Sky\Catom.Sky\bin\Debug\Catom.Sky.exe.config
-D:\GitSpace\Catom.Sky\Catom.Sky\Catom.Sky\Catom.Sky\bin\Debug\Catom.Sky.exe.config
-D:\GitSpace\Catom.Sky\Catom.Sky\bin\Debug\Catom.Sky.exe.config
-D:\GitSpace\Catom.Sky\Catom.Sky\bin\Debug\Catom.Sky.exe
-D:\GitSpace\Catom.Sky\Catom.Sky\bin\Debug\Catom.Sky.pdb
-D:\GitSpace\Catom.Sky\Catom.Sky\obj\Debug\Catom.Sky.exe
-D:\GitSpace\Catom.Sky\Catom.Sky\obj\Debug\Catom.Sky.pdb
