@@ -10,7 +10,6 @@ namespace Catom.Sky.Web
         {
             // DESC 此处添加过滤器
             filters.Add(new MyExceptionFilter());
-            //filters.Add(new HandleErrorAttribute());
         }
     }
 }

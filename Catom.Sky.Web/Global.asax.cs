@@ -25,7 +25,7 @@ namespace Catom.Sky.Web
             WebApiConfig.Register(GlobalConfiguration.Configuration);   // 注册 Web.config。
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);  // 过滤配置，如异常、鉴权过滤等（FilterAttribute, IAuthorizationFilter）。
             RouteConfig.RegisterRoutes(RouteTable.Routes);  // 注册Web路由。
-            BundleConfig.RegisterBundles(BundleTable.Bundles);  // 将css、js文件压缩打包成一个文件，提高请求效率。
+            //BundleConfig.RegisterBundles(BundleTable.Bundles);  // 将css、js文件压缩打包成一个文件，提高请求效率。
             AuthConfig.RegisterAuth();  // 外站点账号鉴权注册。
             #endregion 
 

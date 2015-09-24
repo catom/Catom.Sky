@@ -8,51 +8,106 @@ namespace Catom.Sky.Web.Controllers
 {
     public class CatomController : BaseController
     {
-        // 1. 页面入口
-        public ActionResult SwtchIndex(string section)
+        public ActionResult SignIn()
         {
-            if (string.IsNullOrEmpty(section))
-            {
-                return Content("<h3>请输入区域名称！</h3>");
-            }
-
-            return RedirectToAction("Index");
-        }
-
-        // 2. 登陆页面
-        public ActionResult Login()
-        {
-
             return View();
         }
 
-        // 3. 主页
+        public ActionResult SignUp()
+        {
+            return View();
+        }
+
+        // 主页
         public ActionResult Index()
         {
-
-
             return View();
         }
 
-        // 导航栏
-        public ActionResult Navigation()
+        public ActionResult Home()
         {
-
             return View();
         }
 
-        // 页脚栏
-        public ActionResult Footer()
+        public ActionResult NewUser()
         {
-
             return View();
         }
 
+        public ActionResult PersonalInfo()
+        {
+            return View();
+        }
+
+        public ActionResult UserList()
+        {
+            return View();
+        }
+
+        public ActionResult UserProfile()
+        {
+            return View();
+        }
+
+
+        #region 控件页面
+        public ActionResult Calendar()
+        {
+            return View();
+        }
+
+        public ActionResult ChartShowcase()
+        {
+            return View();
+        }
+
+        public ActionResult CodeEditor()
+        {
+            return View();
+        }
+
+        public ActionResult FormShowcase()
+        {
+            return View();
+        }
+
+        public ActionResult Gallery()
+        {
+            return View();
+        }
+
+        public ActionResult Grids()
+        {
+            return View();
+        }
+
+        public ActionResult Icons()
+        {
+            return View();
+        }
+
+        public ActionResult Tables()
+        {
+            return View();
+        }
+
+        public ActionResult UIElement()
+        {
+            return View();
+        }
+        #endregion
+
+
+        #region 通用部分
         // 错误页面
         public ActionResult Error()
         {
 
             return View();
         }
+        #endregion
+
+
+
     }
 }

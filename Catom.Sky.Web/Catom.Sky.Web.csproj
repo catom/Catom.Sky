@@ -55,6 +55,7 @@
     <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
       <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -196,29 +197,131 @@
   <ItemGroup>
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\Bootstrapper.cs" />
-    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebActivatorConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CatomController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Filters\MyExceptionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CommonHelper.cs" />
+    <Compile Include="Helpers\ConfigHelper.cs" />
+    <Compile Include="Helpers\Constants.cs" />
+    <Compile Include="Helpers\ImageHelper.cs" />
+    <Compile Include="Helpers\MvcHelper.cs" />
+    <Compile Include="Helpers\NetHelper.cs" />
+    <Compile Include="Helpers\OssHelper.cs" />
+    <Compile Include="Helpers\Thumbnail.cs" />
+    <Compile Include="Helpers\ValidateCode.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Start\0_Desc_DLL.txt" />
-    <Content Include="App_Start\0_Desc_sys.txt" />
+    <Content Include="App_Start\All_Desc.txt" />
+    <Content Include="App_Start\系统架构描述.txt" />
+    <Content Include="Content\css\bootstrap\bootstrap-overrides.css" />
+    <Content Include="Content\css\bootstrap\bootstrap-responsive.css" />
+    <Content Include="Content\css\bootstrap\bootstrap.css" />
+    <Content Include="Content\css\code-editor.css" />
+    <Content Include="Content\css\compiled\calendar.css" />
+    <Content Include="Content\css\compiled\chart-showcase.css" />
+    <Content Include="Content\css\compiled\elements.css" />
+    <Content Include="Content\css\compiled\form-showcase.css" />
+    <Content Include="Content\css\compiled\form-wizard.css" />
+    <Content Include="Content\css\compiled\gallery.css" />
+    <Content Include="Content\css\compiled\grids.css" />
+    <Content Include="Content\css\compiled\index.css" />
+    <Content Include="Content\css\compiled\new-user.css" />
+    <Content Include="Content\css\compiled\personal-info.css" />
+    <Content Include="Content\css\compiled\signin.css" />
+    <Content Include="Content\css\compiled\signup.css" />
+    <Content Include="Content\css\compiled\tables.css" />
+    <Content Include="Content\css\compiled\ui-elements.css" />
+    <Content Include="Content\css\compiled\user-list.css" />
+    <Content Include="Content\css\compiled\user-profile.css" />
+    <Content Include="Content\css\compiled\web-app-icons.css" />
+    <Content Include="Content\css\elements.css" />
+    <Content Include="Content\css\icons.css" />
+    <Content Include="Content\css\layout.css" />
+    <Content Include="Content\css\lib\bootstrap-wysihtml5.css" />
+    <Content Include="Content\css\lib\bootstrap.datepicker.css" />
+    <Content Include="Content\css\lib\font-awesome.css" />
+    <Content Include="Content\css\lib\fullcalendar.css" />
+    <Content Include="Content\css\lib\fullcalendar.print.css" />
+    <Content Include="Content\css\lib\jquery-ui-1.10.2.custom.css" />
+    <Content Include="Content\css\lib\morris.css" />
+    <Content Include="Content\css\lib\select2.css" />
+    <Content Include="Content\css\lib\uniform.default.css" />
+    <Content Include="Content\img\bgs\10.jpg" />
+    <Content Include="Content\img\bgs\11.jpg" />
+    <Content Include="Content\img\bgs\7.jpg" />
+    <Content Include="Content\img\bgs\8.jpg" />
+    <Content Include="Content\img\bgs\9.jpg" />
+    <Content Include="Content\img\bgs\blueish.jpg" />
+    <Content Include="Content\img\bgs\landscape.jpg" />
+    <Content Include="Content\img\btn-attach.png" />
+    <Content Include="Content\img\btn-setting.png" />
+    <Content Include="Content\img\btn-shuffle.png" />
+    <Content Include="Content\img\btn-tool.png" />
+    <Content Include="Content\img\contact-img.png" />
+    <Content Include="Content\img\contact-img2.png" />
+    <Content Include="Content\img\contact-profile.png" />
+    <Content Include="Content\img\gallery-preview.jpg" />
+    <Content Include="Content\img\gallery1.jpg" />
+    <Content Include="Content\img\gallery2.jpg" />
+    <Content Include="Content\img\gallery3.jpg" />
+    <Content Include="Content\img\glyphicons-halflings-white.png" />
+    <Content Include="Content\img\glyphicons-halflings.png" />
+    <Content Include="Content\img\ico-arrow-black.png" />
+    <Content Include="Content\img\ico-gallery-edit.png" />
+    <Content Include="Content\img\ico-gallery-trash.png" />
+    <Content Include="Content\img\ico-mail.png" />
+    <Content Include="Content\img\ico-phone.png" />
+    <Content Include="Content\img\ico-table-delete.png" />
+    <Content Include="Content\img\ico-table-edit.png" />
+    <Content Include="Content\img\ico-table-new.png" />
+    <Content Include="Content\img\jquery-ui\slider-handler.png" />
+    <Content Include="Content\img\jquery-ui\slider-handler2.png" />
+    <Content Include="Content\img\jquery-ui\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="Content\img\jquery-ui\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="Content\img\lens.png" />
+    <Content Include="Content\img\logo-white.png" />
+    <Content Include="Content\img\logo.png" />
+    <Content Include="Content\img\logo\sky.ico" />
+    <Content Include="Content\img\new-gallery-img.png" />
+    <Content Include="Content\img\no-img-gallery.png" />
+    <Content Include="Content\img\personal-info.png" />
+    <Content Include="Content\img\select-bg.png" />
+    <Content Include="Content\img\select2\select2.png" />
+    <Content Include="Content\img\select2\select2x2.png" />
+    <Content Include="Content\img\select2\spinner.gif" />
+    <Content Include="Content\img\skin-nav-bullets.png" />
+    <Content Include="Content\img\table-img.png" />
+    <Content Include="Content\img\uniform\bg-input-focus.png" />
+    <Content Include="Content\img\uniform\bg-input.png" />
+    <Content Include="Content\img\uniform\sprite.png" />
+    <Content Include="Content\js\bootstrap-wysihtml5-0.0.2.js" />
+    <Content Include="Content\js\bootstrap.datepicker.js" />
+    <Content Include="Content\js\bootstrap.min.js" />
+    <Content Include="Content\js\fuelux.wizard.js" />
+    <Content Include="Content\js\fullcalendar.min.js" />
+    <Content Include="Content\js\jquery-latest.js" />
+    <Content Include="Content\js\jquery-ui-1.10.2.custom.min.js" />
+    <Content Include="Content\js\jquery.flot.js" />
+    <Content Include="Content\js\jquery.flot.resize.js" />
+    <Content Include="Content\js\jquery.flot.stack.js" />
+    <Content Include="Content\js\jquery.js" />
+    <Content Include="Content\js\jquery.knob.js" />
+    <Content Include="Content\js\jquery.uniform.min.js" />
+    <Content Include="Content\js\morris.min.js" />
+    <Content Include="Content\js\select2.min.js" />
+    <Content Include="Content\js\theme.js" />
+    <Content Include="Content\js\wysihtml5-0.3.0.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\jquery.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -228,43 +331,12 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Content\Site.css" />
-    <Content Include="Scripts\_references.js" />
-    <Content Include="Images\accent.png" />
-    <Content Include="Images\bullet.png" />
-    <Content Include="Images\heroAccent.png" />
-    <Content Include="Images\orderedList0.png" />
-    <Content Include="Images\orderedList1.png" />
-    <Content Include="Images\orderedList2.png" />
-    <Content Include="Images\orderedList3.png" />
-    <Content Include="Images\orderedList4.png" />
-    <Content Include="Images\orderedList5.png" />
-    <Content Include="Images\orderedList6.png" />
-    <Content Include="Images\orderedList7.png" />
-    <Content Include="Images\orderedList8.png" />
-    <Content Include="Images\orderedList9.png" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
-    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Manage.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\" />
-    <Folder Include="Helpers\" />
     <Folder Include="Security\" />
   </ItemGroup>
   <ItemGroup>
@@ -278,10 +350,61 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Catom\SignIn.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Catom\SignUp.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Views\Catom\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Catom\Navigation.cshtml" />
+    <Content Include="Views\Catom\Calendar.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Catom\ChartShowcase.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Head.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Catom\CodeEditor.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\FramePart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Catom\Home.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Catom\FormShowcase.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Catom\Gallery.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Catom\Grids.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Catom\Icons.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Catom\NewUser.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Catom\PersonalInfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Catom\Tables.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Catom\UIElement.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Catom\UserList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Catom\UserProfile.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -301,7 +424,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:11878/</IISUrl>
+          <IISUrl>http://localhost:12345/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

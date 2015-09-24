@@ -23,10 +23,10 @@ namespace Catom.Sky.Web.App_Start
         {
             #region 通过 UnityContainer 注册依赖关系
 
-            var container = UnityConfig.GetConfiguredContainer();
-            FilterProviders.Providers.Remove(FilterProviders.Providers.OfType<FilterAttributeFilterProvider>().First());
-            FilterProviders.Providers.Add(new UnityFilterAttributeFilterProvider(container));
-            DependencyResolver.SetResolver(container);
+            //var container = UnityConfig.GetConfiguredContainer();
+            //FilterProviders.Providers.Remove(FilterProviders.Providers.OfType<FilterAttributeFilterProvider>().First());
+            //FilterProviders.Providers.Add(new UnityFilterAttributeFilterProvider(container));
+            //DependencyResolver.SetResolver(container);
             
             #endregion
 

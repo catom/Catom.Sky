@@ -1,14 +1,16 @@
-﻿using System.Collections.Specialized;
+﻿using System.Collections;
 using System.Configuration;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
-using System.Data;
 using Microsoft.Practices.Unity.Mvc;
+using System.Data;
+using Catom.Sky.Component.Data;
 
 namespace Catom.Sky.Web.App_Start
 {
     public sealed class Bootstrapper
     {
+        #region 载体类，单例模式
         private static Bootstrapper strapper = null;
 
         public static Bootstrapper Instance
@@ -22,24 +24,27 @@ namespace Catom.Sky.Web.App_Start
                 return strapper;
             }
         }
+        #endregion
 
+        #region IoC 容器实例对象
         private IUnityContainer container = null;
 
+        // IoC 容器实例
         public IUnityContainer UnityContainer
         {
-            get
-            {
-                return this.container;
-            }
+            get { return this.container; }
         }
+        #endregion
 
+        #region 创建容器，初始注入各种类
         public void Initialise()
         {
             BuildUnityContainer();
+            // 设置容器
             DependencyResolver.SetResolver(new UnityDependencyResolver(this.container));
         }
 
-        public void BuildUnityContainer()
+        private void BuildUnityContainer()
         {
             /*
              * 
@@ -53,6 +58,19 @@ namespace Catom.Sky.Web.App_Start
 
             container = new UnityContainer();
 
+
+            #region DAL 映射注入
+
+            string Conn = ConfigurationManager.ConnectionStrings["SkyConn"].ConnectionString;
+            string ReadConn = ConfigurationManager.ConnectionStrings["SkyReadConn"].ConnectionString;
+            string WriteConn = ConfigurationManager.ConnectionStrings["SkyWriteConn"].ConnectionString;
+            container.RegisterType(typeof(IUnitOfWork), typeof(UnitOfWork), "UnitOfWork", new InjectionConstructor(Conn));
+            container.RegisterType(typeof(IUnitOfWork), typeof(UnitOfWork), "ReadUnitOfWork", new InjectionConstructor(ReadConn));
+            container.RegisterType(typeof(IUnitOfWork), typeof(UnitOfWork), "WriteUnitOfWork", new InjectionConstructor(WriteConn));
+            #endregion
+
+
+            #region 缓存、session等的注入
             //namevaluecollection nvc = configurationmanager.appsettings;
             //string serverlist = nvc["serverlist"];
             //string cachedarea = nvc["cachedarea"];
@@ -62,18 +80,16 @@ namespace Catom.Sky.Web.App_Start
             //icache mycache = new memcache(serverip, cachedarea);
             //icache mycache = new ocscache();
             //container.registerinstance(typeof(icache), mycache);
-
-            #region 新的数据访问方式
-            //string readconn = configurationmanager.connectionstrings["schoolpalread"].connectionstring;
-            //string writeconn = configurationmanager.connectionstrings["schoolpalwrite"].connectionstring;
-            //container.registertype(typeof(iunitofwork), typeof(defaultunitofwork), "readunitofwork", new injectionconstructor(readconn));
-            //container.registertype(typeof(iunitofwork), typeof(defaultunitofwork), "writeunitofwork", new injectionconstructor(writeconn));
             #endregion
 
-            #region 接口映射
+            #region 接口映射注入
 
             #endregion
+
+
         }
+
+        #endregion
     }
 }
 

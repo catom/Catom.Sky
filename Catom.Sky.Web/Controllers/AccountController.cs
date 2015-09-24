@@ -14,7 +14,6 @@ using Catom.Sky.Web.Models;
 namespace Catom.Sky.Web.Controllers
 {
     [Authorize]
-    [InitializeSimpleMembership]
     public class AccountController : Controller
     {
         //

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Text;
+using Catom.Sky.Component.Util;
 
 namespace Catom.Sky.Web.Filters
 {
@@ -43,13 +44,13 @@ namespace Catom.Sky.Web.Filters
                 }
 
                 // NTODO 写入日志
-                //LogHelper.WriteLog(sb.ToString());
+                LogHelper.WriteLog(sb.ToString());
 
                 filterContext.ExceptionHandled = true;
 
                 //普通请求，返回自定义错误页面
                 var urlHelper = new UrlHelper(filterContext.RequestContext);
-                var url = urlHelper.Action("ErrorRedirect", "SchoolPal");
+                var url = urlHelper.Action("Error", "Catom");
                 filterContext.Result = new RedirectResult(url);
             }
         }
