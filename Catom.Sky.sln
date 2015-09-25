@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catom.Sky", "Catom.Sky\Catom.Sky.csproj", "{DC472CB9-0A65-44DA-86DB-C0F6A92273EC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{44C26C52-FEC5-4F7A-AB73-0BA9F7DA0405} = {44C26C52-FEC5-4F7A-AB73-0BA9F7DA0405}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catom.Sky.Web", "Catom.Sky.Web\Catom.Sky.Web.csproj", "{380EFFDB-27B6-4DF3-AE7A-BCC5590AF56B}"
 EndProject

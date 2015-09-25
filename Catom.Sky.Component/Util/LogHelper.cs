@@ -12,7 +12,8 @@ namespace Catom.Sky.Component.Util
         {
             // 路径
             var envPath = Environment.CurrentDirectory;
-            var currPath = envPath.Substring(0, envPath.Length - @"bin\Debug".Length);
+            envPath = envPath.Replace("/",@"\");
+            var currPath = envPath.IndexOf(@"bin\Debug") > -1 ? envPath.Substring(0, envPath.IndexOf(@"bin\Debug")) : envPath;
             logPath = (logPath == "" ? currPath : logPath) + @"Log";
             if (!Directory.Exists(logPath))
             {
@@ -32,7 +33,8 @@ namespace Catom.Sky.Component.Util
         {
             // 路径
             var envPath = Environment.CurrentDirectory;
-            var currPath = envPath.Substring(0, envPath.Length - @"bin\Debug".Length);
+            envPath = envPath.Replace("/", @"\");
+            var currPath = envPath.IndexOf(@"bin\Debug") > -1 ? envPath.Substring(0, envPath.IndexOf(@"bin\Debug")) : envPath;
             logPath = (logPath == "" ? currPath : logPath) + @"Log";
             if (!Directory.Exists(logPath))
             {
