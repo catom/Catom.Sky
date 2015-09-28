@@ -198,6 +198,7 @@
   <ItemGroup>
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\Bootstrapper.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebActivatorConfig.cs" />
@@ -247,6 +248,9 @@
     <Content Include="Content\css\compiled\user-profile.css" />
     <Content Include="Content\css\compiled\web-app-icons.css" />
     <Content Include="Content\css\elements.css" />
+    <Content Include="Content\css\font-awesome\font-awesome.css" />
+    <Content Include="Content\css\font-awesome\font-awesome.min.css" />
+    <Content Include="Content\css\font\fontawesome-webfont.svg" />
     <Content Include="Content\css\icons.css" />
     <Content Include="Content\css\layout.css" />
     <Content Include="Content\css\lib\bootstrap-wysihtml5.css" />
@@ -306,22 +310,24 @@
     <Content Include="Content\img\uniform\bg-input-focus.png" />
     <Content Include="Content\img\uniform\bg-input.png" />
     <Content Include="Content\img\uniform\sprite.png" />
-    <Content Include="Content\js\bootstrap-wysihtml5-0.0.2.js" />
-    <Content Include="Content\js\bootstrap.datepicker.js" />
-    <Content Include="Content\js\bootstrap.min.js" />
+    <Content Include="Content\js\bootstrap\bootstrap-wysihtml5-0.0.2.js" />
+    <Content Include="Content\js\bootstrap\bootstrap.datepicker.js" />
+    <Content Include="Content\js\bootstrap\bootstrap.min.js" />
     <Content Include="Content\js\fuelux.wizard.js" />
     <Content Include="Content\js\fullcalendar.min.js" />
-    <Content Include="Content\js\jquery-latest.js" />
-    <Content Include="Content\js\jquery-ui-1.10.2.custom.min.js" />
-    <Content Include="Content\js\jquery.flot.js" />
-    <Content Include="Content\js\jquery.flot.resize.js" />
-    <Content Include="Content\js\jquery.flot.stack.js" />
-    <Content Include="Content\js\jquery.js" />
-    <Content Include="Content\js\jquery.knob.js" />
-    <Content Include="Content\js\jquery.uniform.min.js" />
+    <Content Include="Content\js\jquery\jquery-latest.js" />
+    <Content Include="Content\js\jquery\jquery-ui-1.10.2.custom.min.js" />
+    <Content Include="Content\js\jquery\jquery.flot.js" />
+    <Content Include="Content\js\jquery\jquery.flot.resize.js" />
+    <Content Include="Content\js\jquery\jquery.flot.stack.js" />
+    <Content Include="Content\js\jquery\jquery.js" />
+    <Content Include="Content\js\jquery\jquery.knob.js" />
+    <Content Include="Content\js\jquery\jquery.uniform.min.js" />
+    <Content Include="Content\js\modernizr\modernizr-2.6.2-respond-1.1.0.js" />
+    <Content Include="Content\js\modernizr\modernizr-2.6.2-respond-1.1.0.min.js" />
     <Content Include="Content\js\morris.min.js" />
     <Content Include="Content\js\select2.min.js" />
-    <Content Include="Content\js\theme.js" />
+    <Content Include="Content\js\theme\theme.js" />
     <Content Include="Content\js\wysihtml5-0.3.0.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -408,6 +414,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Catom\UserProfile.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\css\font\fontawesome-webfont.eot" />
+    <Content Include="Content\css\font\fontawesome-webfont.ttf" />
+    <Content Include="Content\css\font\fontawesome-webfont.woff" />
+    <Content Include="Content\css\font\FontAwesome.otf" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
