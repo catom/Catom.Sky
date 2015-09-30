@@ -143,6 +143,7 @@ namespace Dapper.Contrib.Extensions
                 name = type.Name;
                 if (type.IsInterface && name.StartsWith("I"))
                     name = name.Substring(1);
+
                 //NOTE: This as dynamic trick should be able to handle both our own Table-attribute as well as the one in EntityFramework 
                 var tableattr = type.GetCustomAttributes(false).Where(attr => attr.GetType().Name == "TableAttribute").SingleOrDefault() as dynamic;
                 if (tableattr != null)
@@ -975,15 +976,12 @@ namespace Dapper.Contrib.Extensions
         }
     }
 
-    // 主键属性
+    // 主键属性，Entity的主键属性，需要注释此属性类为父类。
     [AttributeUsage(AttributeTargets.Property)]
     public class PrimaryKeyAttribute : Attribute
     {
-        public bool isPK { set; get; }
-
-        public PrimaryKeyAttribute(bool isPK)
+        public PrimaryKeyAttribute()
         {
-            this.isPK = isPK;
         }
     }
 
