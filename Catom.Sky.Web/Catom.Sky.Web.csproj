@@ -1086,6 +1086,10 @@
     <Content Include="Content\js\bootstrap\bootstrap-wysihtml5-0.0.2.js" />
     <Content Include="Content\js\bootstrap\bootstrap.datepicker.js" />
     <Content Include="Content\js\bootstrap\bootstrap.min.js" />
+    <Content Include="Content\js\cropper\dist\cropper.css" />
+    <Content Include="Content\js\cropper\dist\cropper.js" />
+    <Content Include="Content\js\cropper\dist\cropper.min.css" />
+    <Content Include="Content\js\cropper\dist\cropper.min.js" />
     <Content Include="Content\js\fuelux.wizard.js" />
     <Content Include="Content\js\fullcalendar.min.js" />
     <Content Include="Content\js\jquery\jquery-latest.js" />
@@ -1095,15 +1099,19 @@
     <Content Include="Content\js\jquery\jquery.flot.stack.js" />
     <Content Include="Content\js\jquery\jquery.js" />
     <Content Include="Content\js\jquery\jquery.knob.js" />
+    <Content Include="Content\js\jquery\jquery.min.js" />
     <Content Include="Content\js\jquery\jquery.uniform.min.js" />
     <Content Include="Content\js\modernizr\modernizr-2.6.2-respond-1.1.0.js" />
     <Content Include="Content\js\modernizr\modernizr-2.6.2-respond-1.1.0.min.js" />
     <Content Include="Content\js\morris.min.js" />
+    <Content Include="Content\js\require\require.js" />
+    <Content Include="Content\js\require\require.min.js" />
     <Content Include="Content\js\select2.min.js" />
     <Content Include="Content\js\theme\theme.js" />
     <Content Include="Content\js\wysihtml5-0.3.0.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Views\Shared\Test.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1210,7 +1218,7 @@
     <Content Include="Content\js\angular\version.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Test.cshtml" />
+    <Content Include="Content\js\jquery\jquery.min.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
