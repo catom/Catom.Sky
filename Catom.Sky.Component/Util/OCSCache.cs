@@ -222,7 +222,7 @@ namespace Catom.Sky.Component.Util
                 IPAddress newAddress;
                 if (ocsAddress.Contains("aliyuncs.com"))
                 {
-                    newAddress = IPAddress.Parse(Dns.GetHostByName(ocsAddress).ToString());
+                    newAddress = IPAddress.Parse(Dns.GetHostAddresses(ocsAddress).First().ToString());
                     //your_instanceid替换为你的OCS实例的ID
                 }
                 else
