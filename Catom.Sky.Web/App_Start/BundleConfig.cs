@@ -63,8 +63,6 @@ namespace Catom.Sky.Web
             bundles.Add(new Bundle("~/Content/js/theme")
                 .Include("~/Content/js/theme/theme.js"));
 
-            bundles.Add(new Bundle("~/Content/js/app")
-                .Include("~/Content/js/*.js"));
 
             #endregion
         }

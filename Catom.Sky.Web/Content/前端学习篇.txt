@@ -10,15 +10,15 @@ http://www.ruanyifeng.com/blog/2012/10/javascript_module.html
 6. nodeJS
 
 【requireJS】
-1. 核心作用：requireJS 是 JS 模块化编程规范中的“异步模块定义（AMD）”规范下的一种 JS 技术。
+1. 功能：requireJS 是 JS 模块化编程规范中的“异步模块定义（AMD）”规范下的一种 JS 技术。
 			 它的使用，很好的实现了依赖模块的异步调用，解决了浏览器端的资源加载问题。
 
 2. 主要语法：
 	2.1 页面引用
-			<script src="require.js" defer async="true" data-main="js/main"></script>
+			<script src="require.js" defer async="true" data-main="/app/js/initjs"></script>
 	2.2 配置模块路径（自定义目录加载）
 			require.config({
-				baseUrl: "js/lib",
+				baseUrl: "/app/js/lib",
 				paths: {
 　　　　　　		"jquery": "https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min"
 　　　　　　		"underscore": "underscore.min",
@@ -27,6 +27,13 @@ http://www.ruanyifeng.com/blog/2012/10/javascript_module.html
 　　		});
 	2.3 调用模块（自动同一目录加载）
 			require(['jquery', 'underscore', 'backbone'], function ($, _, Backbone){ //code here. });
+
+【angularJS】
+1. 功能：模板化前端编程；
+
+2. 主要用法：
+	2.1
+
 
 【underscoreJS】
 

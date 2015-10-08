@@ -1086,6 +1086,12 @@
     <Content Include="Content\js\angular\ngAnimateMock.js" />
     <Content Include="Content\js\angular\ngMock.js" />
     <Content Include="Content\js\angular\ngMockE2E.js" />
+    <Content Include="app\appInit.js" />
+    <Content Include="app\Index.html" />
+    <Content Include="app\modules\base\app.js" />
+    <Content Include="app\modules\base\controller.js" />
+    <Content Include="app\modules\base\service.js" />
+    <Content Include="app\modules\base\template.html" />
     <Content Include="Content\js\bootstrap\bootstrap-wysihtml5-0.0.2.js" />
     <Content Include="Content\js\bootstrap\bootstrap.datepicker.js" />
     <Content Include="Content\js\bootstrap\bootstrap.min.js" />
@@ -1114,6 +1120,7 @@
     <Content Include="Content\js\underscore\underscore-min.js" />
     <Content Include="Content\js\underscore\underscore.js" />
     <Content Include="Content\js\wysihtml5-0.3.0.js" />
+    <Content Include="Content\前端学习篇.txt" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Views\Shared\Test.cshtml" />
