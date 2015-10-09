@@ -2227,7 +2227,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
     },
 
     $delegates: {}
-  };
+  }; // end stateBuilder
 
   function isRelative(stateName) {
     return stateName.indexOf(".") === 0 || stateName.indexOf("^") === 0;

@@ -32,7 +32,8 @@ http://www.ruanyifeng.com/blog/2012/10/javascript_module.html
 1. 功能：模板化前端编程；
 
 2. 主要用法：
-	2.1
+	2.1 配合 requireJS 使用；（调用 + require()）;
+	2.2 
 
 
 【underscoreJS】

@@ -25,9 +25,12 @@ requirejs.config({
 
     },
 
-    // 非AMD规范的库，需要定义其特征
+    // 适配：非AMD规范的库，需要定义其特征
     shim: {
-        'angular': ['jquery'],
+        'angular': {
+            deps: ['jquery'],
+            exports: 'angular'
+        },
         'angularMock': ['angular'],
         'angularResource': ['angular'],
         'uiRouter': ['angular'],
@@ -41,7 +44,7 @@ requirejs.config({
 });
 
 // 设置入口模板
-define(['appEntry'], function () {
+define(['appEntry', 'angular'], function (angular) {
     angular.element(document).ready(function () {
         // 调用入口模板模板
         var baseModule = angular.module('BaseApp')

@@ -6,21 +6,30 @@
 //
 //////////////////////////////////////////////////////
 
+'use strict'
+
 define(
     [
     'angular',
     'uiRouter',
     'base/controller'
     // 挂载子模板于此
+
     ],
 
      function (angular) {
-         return angular.module('BaseApp', ['angular','uiRouter','$stateProvider'],function ($stateProvider) {
-
-         });
-     }
-)
-
+         return angular.module('BaseApp', ['uiRouter', 'controller.baseapp'])
+             .config([
+                 "$stateProvider",
+                 function ($stateProvider) {
+                     $stateProvider.state('base', {
+                         url: '',
+                         templateUrl: 'base/template.html',
+                         controller: 'ControllerBaseApp'
+                     })
+                 }
+             ])
+     });
 
 
 

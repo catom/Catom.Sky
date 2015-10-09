@@ -224,6 +224,8 @@
     <Compile Include="Security\SysAuthority.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\common\common.js" />
+    <Content Include="app\modules\base\directive.js" />
     <Content Include="App_Start\All_Desc.txt" />
     <Content Include="App_Start\系统架构描述.txt" />
     <Content Include="Content\css\bootstrap\bootstrap-overrides.css" />
