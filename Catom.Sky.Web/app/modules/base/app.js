@@ -12,19 +12,20 @@ define(
     [
     'angular',
     'uiRouter',
-    'base/controller'
+    'modules/base/controller'
     // 挂载子模板于此
 
     ],
 
      function (angular) {
-         return angular.module('BaseApp', ['uiRouter', 'controller.baseapp'])
+         // 此处用 uiRouter 会报错，原因是：uiRouter 是引入文件的路径，而 ui.router 才是源码里的模块名称。
+         return angular.module('BaseApp', ['ui.router', 'controller.baseapp'])
              .config([
                  "$stateProvider",
                  function ($stateProvider) {
                      $stateProvider.state('base', {
                          url: '',
-                         templateUrl: 'base/template.html',
+                         templateUrl: 'app/modules/base/template.html',
                          controller: 'ControllerBaseApp'
                      })
                  }

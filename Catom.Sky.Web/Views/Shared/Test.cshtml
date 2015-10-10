@@ -4,18 +4,17 @@
 
 <html>
 <head>
-    <title>@ViewBag.Title</title>
-   
-    @*<script src="/Content/js/angular/angular.min.js"></script>*@
+   <script>
 
+       require = {baseUrl:'/app'};
+   </script>
 </head>
 <body>
-    <script src="/Content/js/require/require.min.js" data-main="/app/appInit"></script>
-    <br />        aaaaaaa
+    <script type="text/javascript" src="/app/libs/require/require.min.js" defer async="async" data-main="/app/main.js"></script>
+    <div>Test ，below is template。</div>
     <br />
     <br />
     <ui-view></ui-view>
-
 </body>
 </html>
 

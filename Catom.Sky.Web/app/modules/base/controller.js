@@ -11,14 +11,15 @@
 define([
     'angular',
     'uiRouter',
-    'base/service'
+    'modules/base/service'
 ],
-    function (angular) {
-        return angular.module("controller.baseapp", ['service.baseapp'])
+    function () {
+        return angular.module("controller.baseapp", ['ui.router','service.baseapp'])
             .controller("ControllerBaseApp", [
-                "$scope", "$rootScope", "ServiceBaseApp",
-                function ($scope, $rootScope, ServiceBaseApp) {
-                    $scope.$user = 'Hello World!';
+                "$scope", "$rootScope","ServiceBaseApp",
+                function ($scope, $rootScope) {
+                    $scope.arr = ['梅西','C罗','内马尔','大圣'];
+                    $scope.desc = 'Hello! This is the base template!';
 
                 }
             ]);

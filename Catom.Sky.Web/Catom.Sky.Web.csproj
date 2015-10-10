@@ -225,6 +225,42 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\common\common.js" />
+    <Content Include="app\libs\angular\angular-loader.js" />
+    <Content Include="app\libs\angular\angular-loader.min.js" />
+    <Content Include="app\libs\angular\angular-mocks.js" />
+    <Content Include="app\libs\angular\angular-resource.js" />
+    <Content Include="app\libs\angular\angular-resource.min.js" />
+    <Content Include="app\libs\angular\angular-ui-router.js" />
+    <Content Include="app\libs\angular\angular-ui-router.min.js" />
+    <Content Include="app\libs\angular\angular.js" />
+    <Content Include="app\libs\angular\angular.min.js" />
+    <Content Include="app\libs\angular\elastic.js" />
+    <Content Include="app\libs\angular\ngAnimateMock.js" />
+    <Content Include="app\libs\angular\ngMock.js" />
+    <Content Include="app\libs\angular\ngMockE2E.js" />
+    <Content Include="app\libs\bootstrap\bootstrap-wysihtml5-0.0.2.js" />
+    <Content Include="app\libs\bootstrap\bootstrap.datepicker.js" />
+    <Content Include="app\libs\bootstrap\bootstrap.min.js" />
+    <Content Include="app\libs\cropper\dist\cropper.css" />
+    <Content Include="app\libs\cropper\dist\cropper.js" />
+    <Content Include="app\libs\cropper\dist\cropper.min.css" />
+    <Content Include="app\libs\cropper\dist\cropper.min.js" />
+    <Content Include="app\libs\jquery\jquery-latest.js" />
+    <Content Include="app\libs\jquery\jquery-ui-1.10.2.custom.min.js" />
+    <Content Include="app\libs\jquery\jquery.flot.js" />
+    <Content Include="app\libs\jquery\jquery.flot.resize.js" />
+    <Content Include="app\libs\jquery\jquery.flot.stack.js" />
+    <Content Include="app\libs\jquery\jquery.js" />
+    <Content Include="app\libs\jquery\jquery.knob.js" />
+    <Content Include="app\libs\jquery\jquery.min.js" />
+    <Content Include="app\libs\jquery\jquery.uniform.min.js" />
+    <Content Include="app\libs\modernizr\modernizr-2.6.2-respond-1.1.0.js" />
+    <Content Include="app\libs\modernizr\modernizr-2.6.2-respond-1.1.0.min.js" />
+    <Content Include="app\libs\require\require.js" />
+    <Content Include="app\libs\require\require.min.js" />
+    <Content Include="app\libs\theme\theme.js" />
+    <Content Include="app\libs\underscore\underscore-min.js" />
+    <Content Include="app\libs\underscore\underscore.js" />
     <Content Include="app\modules\base\directive.js" />
     <Content Include="App_Start\All_Desc.txt" />
     <Content Include="App_Start\系统架构描述.txt" />
@@ -1088,7 +1124,7 @@
     <Content Include="Content\js\angular\ngAnimateMock.js" />
     <Content Include="Content\js\angular\ngMock.js" />
     <Content Include="Content\js\angular\ngMockE2E.js" />
-    <Content Include="app\appInit.js" />
+    <Content Include="app\main.js" />
     <Content Include="app\Index.html" />
     <Content Include="app\modules\base\app.js" />
     <Content Include="app\modules\base\controller.js" />
@@ -1139,6 +1175,8 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\libs\angular\angular-ui\" />
+    <Folder Include="app\libs\angular\i18n\" />
     <Folder Include="App_Data\" />
     <Folder Include="Areas\" />
     <Folder Include="Models\" />
@@ -1238,6 +1276,21 @@
   <ItemGroup>
     <Content Include="Content\js\underscore\component.json" />
     <Content Include="Content\js\underscore\underscore-min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app\libs\jquery\jquery.min.map" />
+    <Content Include="app\libs\underscore\component.json" />
+    <Content Include="app\libs\underscore\underscore-min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app\libs\angular\.bower.json" />
+    <Content Include="app\libs\angular\angular-loader.min.js.map" />
+    <Content Include="app\libs\angular\angular-resource.min.js.map" />
+    <Content Include="app\libs\angular\angular.min.js.gzip" />
+    <Content Include="app\libs\angular\angular.min.js.map" />
+    <Content Include="app\libs\angular\bower.json" />
+    <Content Include="app\libs\angular\package.json" />
+    <Content Include="app\libs\angular\README.md" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -12,9 +12,9 @@ define([
     'angular',
     'uiRouter',
 ],
-    function (angular) {
-        return angular.module('service.baseapp', ['uiRouter'])
-            .factory('BaseAppService', [
+    function () {
+        return angular.module('service.baseapp', ['ui.router'])
+            .factory('ServiceBaseApp', [
                 '$rootScope',
                 function ($rootScope) {
                     var baseService = {};
