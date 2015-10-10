@@ -1124,7 +1124,7 @@
     <Content Include="Content\js\angular\ngAnimateMock.js" />
     <Content Include="Content\js\angular\ngMock.js" />
     <Content Include="Content\js\angular\ngMockE2E.js" />
-    <Content Include="app\main.js" />
+    <Content Include="app\appInit.js" />
     <Content Include="app\Index.html" />
     <Content Include="app\modules\base\app.js" />
     <Content Include="app\modules\base\controller.js" />
