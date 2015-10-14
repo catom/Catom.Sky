@@ -14,9 +14,9 @@ define([
     'modules/base/service'
 ],
     function () {
-        return angular.module("controller.baseapp", ['ui.router','service.baseapp'])
-            .controller("ControllerBaseApp", [
-                "$scope", "$rootScope","ServiceBaseApp",
+        return angular.module("BaseApp.controllers", ['ui.router','BaseApp.services'])
+            .controller("BaseAppController", [
+                "$scope", "$rootScope", "BaseAppService",
                 function ($scope, $rootScope) {
                     $scope.arr = ['梅西','C罗','内马尔','大圣'];
                     $scope.desc = 'Hello! This is the base template!';

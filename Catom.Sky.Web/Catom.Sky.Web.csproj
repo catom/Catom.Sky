@@ -205,6 +205,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CatomController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Filters\MyExceptionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

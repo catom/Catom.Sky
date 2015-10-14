@@ -58,7 +58,6 @@
     <Compile Include="Data\UnitOfWork.cs">
       <DependentUpon>IUnitOfWork.cs</DependentUpon>
     </Compile>
-    <Compile Include="Entity\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repo\BaseRepository.cs">
       <DependentUpon>IRepository.cs</DependentUpon>

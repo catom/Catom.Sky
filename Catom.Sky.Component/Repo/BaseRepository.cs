@@ -22,9 +22,9 @@ namespace Catom.Sky.Component.Repo
             return this.UnitOfWork.Connection.GetOne<T>(id);
         }
 
-        public virtual IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetSome(string where = "", string orderby = "", string limit = " limit 10")
         {
-            return this.UnitOfWork.Connection.GetAll<T>();
+            return this.UnitOfWork.Connection.GetSome<T>(where, orderby, limit);
         }
 
         public virtual long Create(T entity)
@@ -45,6 +45,26 @@ namespace Catom.Sky.Component.Repo
         public virtual bool Delete(T entity)
         {
             return this.UnitOfWork.Connection.DeleteOne<T>(entity);
+        }
+
+        /// <summary>
+        ///  批量按主键删除。
+        /// </summary>
+        /// <param name="IDs"></param>
+        /// <returns></returns>
+        public virtual bool DeleteSome(IEnumerable<long> IDs)
+        {
+            return this.UnitOfWork.Connection.DeleteSome<T>(IDs) > 0;
+        }
+        
+        protected int Execute(string sql, object obj)
+        {
+            return this.UnitOfWork.Connection.Execute(sql, obj);
+        }
+
+        protected long ExecuteScalar(string sql, object obj)
+        {
+            return this.UnitOfWork.Connection.ExecuteScalar<long>(sql, obj);
         }
     }
 }

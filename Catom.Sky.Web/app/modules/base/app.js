@@ -17,16 +17,16 @@ define(
 
     ],
 
-     function (angular) {
+     function () {
          // 此处用 uiRouter 会报错，原因是：uiRouter 是引入文件的路径，而 ui.router 才是源码里的模块名称。
-         return angular.module('BaseApp', ['ui.router', 'controller.baseapp'])
+         return angular.module('BaseApp', ['ui.router', 'BaseApp.controllers'])
              .config([
                  "$stateProvider",
                  function ($stateProvider) {
-                     $stateProvider.state('base', {
+                     $stateProvider.state('BaseApp', {
                          url: '',
                          templateUrl: 'app/modules/base/template.html',
-                         controller: 'ControllerBaseApp'
+                         controller: 'BaseAppController'
                      })
                  }
              ])

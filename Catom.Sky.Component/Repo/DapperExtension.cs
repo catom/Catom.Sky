@@ -493,17 +493,21 @@ namespace Dapper.Contrib.Extensions
         }
 
         /// <summary>
-        ///  查询所有结果。此方法未使用 SQL 格式器。
+        ///  按条件取数据。
         /// </summary>
-        /// <typeparam name="T">实体类型（表名）</typeparam>
-        /// <param name="connection"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
+        /// <typeparam name="T">实体类（表名）</typeparam>
+        /// <param name="where">SQL where 条件</param>
+        /// <param name="orderby">SQL orderby 条件</param>
+        /// <param name="limit">SQL 数量限制条件</param>
         /// <returns></returns>
-        public static IEnumerable<T> GetAll<T>(this IDbConnection connection, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
+        public static IEnumerable<T> GetSome<T>(this IDbConnection connection, string where = "", string orderby = "", string limit = "", IDbTransaction transaction = null, int? commandTimeout = null) where T : class
         {
             var type = typeof(T);
             var cacheType = typeof(List<T>);
+
+            var tbName = GetTableName(type);
+            var escape = GetEscape(connection);
+            var tbNameFormat = escape == null ? tbName : string.Format(@"{0} {1} {2}", escape.LEscape, tbName, escape.REscape);
 
             // 1. 获取 SQL
             string sql;
@@ -515,12 +519,17 @@ namespace Dapper.Contrib.Extensions
                 if (!keys.Any())
                     throw new DataException("Get<T> only supports en entity with a [Key] property");
 
-                var tbName = GetTableName(type);
-                var escape = GetEscape(connection);
-                var tbNameFormat = escape == null ? tbName : string.Format("{0}{1}{2}", escape.LEscape, tbName, escape.REscape);
                 // TODO: query information schema and only select fields that are both in information schema and underlying class / interface 
-                sql = string.Format(@"select * from {0}", tbNameFormat);
+                sql = string.Format(@"select * from {0} {1} {2} {3}", tbNameFormat, where, orderby, limit);
                 GetQueries[cacheType.TypeHandle] = sql;
+            }
+            else
+            {
+                if (!string.Format(@"select * from {0} {1} {2} {3}", tbNameFormat, where, orderby, limit).Equals(sql))
+                {
+                    sql = string.Format(@"select * from {0} {1} {2} {3}", tbNameFormat, where, orderby, limit);
+                    GetQueries[cacheType.TypeHandle] = sql;
+                }
             }
 
             // 2. 返回查询结果集
@@ -630,6 +639,29 @@ namespace Dapper.Contrib.Extensions
             var cmd = DeleteQueryFormatter(typeof(T), escape);
             var deleted = connection.Execute(cmd, entityToDelete, transaction: transaction, commandTimeout: commandTimeout);
             return deleted > 0;
+        }
+
+        /// <summary>
+        ///  按主键批量删除。
+        /// </summary>
+        /// <typeparam name="T">实体类</typeparam>
+        /// <param name="connection"></param>
+        /// <param name="IDs">所需删除的主键列</param>
+        /// <returns></returns>
+        public static int DeleteSome<T>(this IDbConnection connection, IEnumerable<long> IDs, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
+        {
+            var type = typeof(T);
+            var tbName = GetTableName(type);
+            var escape = GetEscape(connection);
+            var tbNameFormat = escape == null ? tbName : string.Format("{0}{1}{2}", escape.LEscape, tbName, escape.REscape);
+            var where = " where id in( 0,";
+            foreach (long id in IDs)
+            {
+                where += id + ",";
+            }
+            where += where.TrimEnd(',') + ")";
+            var statement = String.Format("delete from {0} {1}", tbNameFormat, where);
+            return connection.Execute(statement, null, transaction: transaction, commandTimeout: commandTimeout);
         }
 
         /// <summary>
@@ -962,7 +994,7 @@ namespace Dapper.Contrib.Extensions
             return GetDataTable(UnitOfWork.Connection.ExecuteReader(sql, entity));
         }
     }
-    
+
 
     #region 属性校验工具类。3 类属性：主键、可写（普通）、计算（如其他属性相加所得）
     // 表属性
@@ -1001,11 +1033,8 @@ namespace Dapper.Contrib.Extensions
     [AttributeUsage(AttributeTargets.Property)]
     public class ComputableAttribute : Attribute
     {
-        public bool canCompute { set; get; }
-
-        public ComputableAttribute(bool canCompute)
+        public ComputableAttribute()
         {
-            this.canCompute = canCompute;
         }
     }
 

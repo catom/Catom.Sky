@@ -12,7 +12,7 @@ namespace Catom.Sky.Component.Repo
         ///  获取所有Entity
         /// </summary>
         /// <returns>实体集</returns>
-        IEnumerable<T> GetAll();
+        IEnumerable<T> GetSome(string where = "", string orderby = "", string limit = "");
 
         /// <summary>
         ///  根据ID查询实体

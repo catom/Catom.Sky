@@ -13,6 +13,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catom.Sky.Component", "Catom.Sky.Component\Catom.Sky.Component.csproj", "{44C26C52-FEC5-4F7A-AB73-0BA9F7DA0405}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catom.Sky.Services", "Catom.Sky.Services\Catom.Sky.Services.csproj", "{7C4CEE41-F5F7-4B58-AC94-72B4D573DD55}"
+	ProjectSection(ProjectDependencies) = postProject
+		{44C26C52-FEC5-4F7A-AB73-0BA9F7DA0405} = {44C26C52-FEC5-4F7A-AB73-0BA9F7DA0405}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catom.Sky.WindowsService", "Catom.Sky.WindowsService\Catom.Sky.WindowsService.csproj", "{78AFAAA2-BB0C-46E5-9A84-7284C9C7CF69}"
 EndProject

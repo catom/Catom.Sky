@@ -39,8 +39,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Entity\Employee.cs" />
+    <Compile Include="Entity\Salary.cs" />
+    <Compile Include="Entity\User.cs" />
+    <Compile Include="HrM\EmployeeRepo.cs" />
+    <Compile Include="HrM\HrManage.cs" />
+    <Compile Include="HrM\SalaryRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceResult.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Catom.Sky.Component\Catom.Sky.Component.csproj">
+      <Project>{44c26c52-fec5-4f7a-ab73-0ba9f7da0405}</Project>
+      <Name>Catom.Sky.Component</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
