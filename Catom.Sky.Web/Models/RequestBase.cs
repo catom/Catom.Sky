@@ -44,7 +44,7 @@ namespace Catom.Sky.Web.Models
         public string key { get; set; }
 
         // 请求条件封装实体
-        public T request { get; set; }
+        public T reqArgs { get; set; }
 
         // 分页器
         public PageRequest page { get; set; }

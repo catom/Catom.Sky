@@ -14,8 +14,7 @@ namespace Catom.Sky
             try
             {
                 var a = new[] { 1, 2, 4, 5 };
-
-                Console.WriteLine();
+                Console.WriteLine(a[7]);
             }
             catch (Exception e)
             {

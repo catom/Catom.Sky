@@ -9,7 +9,7 @@ namespace Catom.Sky.Web
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             // DESC 此处添加过滤器
-            filters.Add(new MyExceptionFilter());
+            filters.Add(new ExceptionFilter());
         }
     }
 }

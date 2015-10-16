@@ -8,7 +8,7 @@ using Catom.Sky.Component.Util;
 
 namespace Catom.Sky.Web.Filters
 {
-    public class MyExceptionFilter : FilterAttribute, IExceptionFilter
+    public class ExceptionFilter : FilterAttribute, IExceptionFilter
     {
         public void OnException(ExceptionContext filterContext)
         {

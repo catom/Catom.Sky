@@ -20,11 +20,14 @@ namespace Catom.Sky.Web.Controllers
             {
                 var hrM = new HrManage(UnitOfWork);
 
-                var data = hrM.GetSalary(req.request.Id);
-                if (data.Status)
-                    return Json((Salary)data.Data, JsonRequestBehavior.AllowGet);
+                //var data = hrM.GetSalary(req.request.Id);
+                var data = hrM.GetEmployeeAndSalary(req.reqArgs.Month).Data as IEnumerable<EmployeeAndSalary>;
+                data = data.Where(e => e.EmployeeId < 10363);
+
+                if (data.Count() > 0)
+                    return Json(data, JsonRequestBehavior.AllowGet);
                 else
-                    return Json(data.Message, JsonRequestBehavior.AllowGet);
+                    return Json("失败", JsonRequestBehavior.AllowGet);
             }
         }
 

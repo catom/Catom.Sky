@@ -28,9 +28,10 @@ namespace Catom.Sky.Services.HrM
         /// <returns></returns>
         public IEnumerable<Salary> GetSalaryList(long employeeId = 0, string month = "")
         {
-            var param = new Dictionary<string, object>();
-
+            var baseSql = @"select * from salary ";
             var where = " where 1=1 ";
+
+            var param = new Dictionary<string, object>();
             if (employeeId != 0)
             {
                 where += @" and employeeId = @employeeId";
@@ -42,8 +43,36 @@ namespace Catom.Sky.Services.HrM
                 param.Add("@month", month);
             }
 
-            var sql = @"select * from salary " + where;
-            return queryManager.GetList<Salary>(sql, param);
+            var sql = baseSql + where;
+            var list = queryManager.GetList<Salary>(sql, param);
+            return list;
+        }
+
+        /// <summary>
+        ///  员工、薪资关联查询。
+        /// </summary>
+        /// <param name="employeeId">员工工资</param>
+        /// <param name="month">所发月份</param>
+        /// <returns></returns>
+        public IEnumerable<EmployeeAndSalary> GetEmployeeAndSalaryList(long employeeId = 0, string month = "")
+        {
+            var baseSql = @"select * from employee e join salary s on e.id = s.employeeId ";
+            var where = " where 1=1 ";
+
+            var param = new Dictionary<string, object>();
+            if (employeeId != 0)
+            {
+                where += @" and e.Id = @employeeId";
+                param.Add("@employeeId", employeeId);
+            }
+            if (month != "")
+            {
+                where += @" and s.month = @month";
+                param.Add("@month", month);
+            }
+
+            var sql = baseSql  + where;
+            return queryManager.GetList<EmployeeAndSalary>(sql, param);
         }
 
 

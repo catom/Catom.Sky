@@ -30,13 +30,18 @@ namespace Catom.Sky.Component.Data.Query
         {
             return this.UnitOfWork.Connection.Query<T>(sql);
         }
+        
+        public IEnumerable<T> GetList<T>(string sql, object entity)
+        {
+            return this.UnitOfWork.Connection.Query<T>(sql, entity);
+        }
 
-        public int GetExecuteQuery(string sql)
+        public int ExecuteQuery(string sql)
         {
             return this.UnitOfWork.Connection.Execute(sql);
         }
 
-        public int GetExecuteQuery(string sql, object entity)
+        public int ExecuteQuery(string sql, object entity)
         {
             return this.UnitOfWork.Connection.Execute(sql, entity);
         }
@@ -55,7 +60,12 @@ namespace Catom.Sky.Component.Data.Query
         {
             return GetDataTable(UnitOfWork.Connection.ExecuteReader(sql));
         }
-
+        
+        public DataTable GetDataTable(string sql, object entity)
+        {
+            return GetDataTable(UnitOfWork.Connection.ExecuteReader(sql, entity));
+        }
+        
         private DataTable GetDataTable(IDataReader dataReader)
         {
             using (dataReader)
@@ -128,15 +138,6 @@ namespace Catom.Sky.Component.Data.Query
             }
         }
 
-        public IEnumerable<T> GetList<T>(string sql, object entity)
-        {
-            return this.UnitOfWork.Connection.Query<T>(sql, entity);
-        }
-
-        public DataTable GetDataTable(string sql, object entity)
-        {
-            return GetDataTable(UnitOfWork.Connection.ExecuteReader(sql, entity));
-        }
     }
 
 }

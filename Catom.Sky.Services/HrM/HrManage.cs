@@ -90,11 +90,46 @@ namespace Catom.Sky.Services.HrM
         }
 
         // 按员工ID 和 发放月份组合查找。
-        public ServiceResult GetSalaryList(long id, string month)
+        public ServiceResult GetSalaryList(long employeeId, string month)
         {
             try
             {
-                var salaryList = salaryRepo.GetSalaryList(id, month);
+                var salaryList = salaryRepo.GetSalaryList(employeeId, month);
+                if (salaryList == null)
+                {
+                    return new ServiceResult(false, "未获取到相关数据");
+                }
+                return new ServiceResult(true, "获取成功") { Data = salaryList };
+            }
+            catch (Exception e)
+            {
+                return new ServiceResult(false, e.Message);
+            }
+        }
+
+        // 
+        public ServiceResult GetEmployeeAndSalary(string month)
+        {
+            try
+            {
+                var salaryList = salaryRepo.GetEmployeeAndSalaryList(0, month);
+                if (salaryList == null)
+                {
+                    return new ServiceResult(false, "未获取到相关数据");
+                }
+                return new ServiceResult(true, "获取成功") { Data = salaryList };
+            }
+            catch (Exception e)
+            {
+                return new ServiceResult(false, e.Message);
+            }
+        }
+        // 按员工ID 和发放月份组合，关联查找。
+        public ServiceResult GetEmployeeAndSalary(long employeeId, string month)
+        {
+            try
+            {
+                var salaryList = salaryRepo.GetEmployeeAndSalaryList(employeeId, month);
                 if (salaryList == null)
                 {
                     return new ServiceResult(false, "未获取到相关数据");

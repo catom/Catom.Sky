@@ -19,9 +19,16 @@
 		UI 层：
 			1）Unity 4 个 dll；
 			2）Boostrapper.cs 引导并注入 IUnitOfWork；
+			
 
-
-
+》》》 WebApp 分层：
+	1. 基本 DAL（Component 或 Provider）、BLL（Service）、UI（Web）；
+	2. 层间联系：
+		2.1 Component 层查询的简单实体（Entity），可作为 Service 层的调用中间数据，亦可直接返回到 Controller 层来使用，
+					其实现通过自写扩展第三方 ORM 插件，实现单表的 CRUD 简单方法。
+		2.2 Service 层的查询为多表查询（Model），直接返回到 Controller 层来使用，
+					其实现可用通过 QueryManager 的 GetList 来实现（本质 Connection.Query<Entity>）, 实体用多表创建的复合实体即可，然后SQL在Service层自写。
+		*注：在 Component 层实现多表查询，暂未找到实现方法。
 
 
 
