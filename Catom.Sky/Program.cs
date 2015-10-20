@@ -7,19 +7,43 @@ using Catom.Sky.Component.Util;
 
 namespace Catom.Sky
 {
+    public class A
+    {
+        public A()
+        {
+            System.Console.WriteLine("This is A.");
+        }
+    }
+
+    public class B : P
+    {
+        int i = 11;
+
+        public A a = new A();
+
+        public B()
+        {
+            System.Console.WriteLine("This is B." + i);
+        }
+    }
+
+    public class P
+    {
+        public P()
+        {
+            System.Console.WriteLine("This is P.");
+        }
+    }
+
     class Program
     {
         static void Main(string[] args)
         {
-            try
-            {
-                var a = new[] { 1, 2, 4, 5 };
-                Console.WriteLine(a[7]);
-            }
-            catch (Exception e)
-            {
-                LogHelper.WriteLog(e);
-            }
+            new B();
         }
     }
+
+
+
+
 }

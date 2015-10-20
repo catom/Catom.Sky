@@ -13,7 +13,6 @@ namespace Catom.Sky.Web.Controllers
         // Constructor.
         public BaseController()
         {
-
         }
 
         // 初始注入数据层、业务逻辑层
