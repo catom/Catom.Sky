@@ -24,7 +24,7 @@ namespace Catom.Sky.Web
             routes.MapRoute(
                 name: "Login",
                 url: "",
-                defaults: new { controller = "Salary", action = "GetSalary"}
+                defaults: new { controller = "Catom", action = "Index" }
             );
 
             // 2. 首页路由（页面框架）

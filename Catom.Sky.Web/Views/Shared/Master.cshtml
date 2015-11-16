@@ -1,0 +1,37 @@
+﻿@using Catom.Sky.Web.Helpers
+@using Microsoft.Practices.Unity
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>天空网</title>
+    @Html.RenderCss("/content/css/copy_s.css")
+    @Html.RenderCss("/content/css/layout.css")
+    @Html.RenderCss("/content/css/style.css")
+
+    @if (IsSectionDefined("HeadDefinedScript"))
+    {
+        @RenderSection("HeadDefinedScript", false)
+    }
+    else
+    {
+        @Html.RenderScript("/Scripts/libs/jquery/jquery-1.10.2.min.js")
+        @Html.RenderScript("/Scripts/greedyint.common.js")
+        @Html.RenderScript("/Scripts/libs/lhgdialog/lhgdialog.js")
+        @Html.RenderScript("/Scripts/libs/lhgdialog/dialog.base.js")
+        @Html.RenderScript("/Scripts/libs/jqPaginator.js")
+        @Html.RenderScript("/Scripts/libs/longreextent.js")
+        @Html.RenderScript("/Scripts/components/errormessage.js")
+        @Html.RenderScript("/Scripts/components/saveconfirm.js")
+        @Html.RenderScript("/Scripts/components/advancedsearch.js")
+        @Html.RenderScript("/Scripts/title/changePsd.js")
+    }
+
+    @RenderSection("Head", false)
+</head>
+<body class="body-template">
+    @RenderBody()
+</body>
+</html>
+

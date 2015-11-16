@@ -20,6 +20,15 @@ namespace Catom.Sky.Component.Data.Query
             this.UnitOfWork = uw;
         }
 
+
+        #region Query methods
+
+        public IEnumerable<T> GetList<T>(string sql, string countSql, out long total, object para)
+        {
+            total = this.UnitOfWork.Connection.ExecuteScalar<long>(countSql, para);
+            return GetList<T>(sql, para);
+        }
+
         public IEnumerable<T> GetList<T>(string sql, string countSql, out long total)
         {
             total = this.UnitOfWork.Connection.ExecuteScalar<long>(countSql);
@@ -30,7 +39,7 @@ namespace Catom.Sky.Component.Data.Query
         {
             return this.UnitOfWork.Connection.Query<T>(sql);
         }
-        
+
         public IEnumerable<T> GetList<T>(string sql, object entity)
         {
             return this.UnitOfWork.Connection.Query<T>(sql, entity);
@@ -51,21 +60,25 @@ namespace Catom.Sky.Component.Data.Query
             return this.UnitOfWork.Connection.ExecuteScalar<T>(sql);
         }
 
-        public T GetScalar<T>(string sql, object entity)
+        public T GetScalar<T>(string sql, object para)
         {
-            return this.UnitOfWork.Connection.ExecuteScalar<T>(sql, entity);
+            return this.UnitOfWork.Connection.ExecuteScalar<T>(sql, para);
         }
 
+        #endregion
+
+
+        #region GetDataTable
         public DataTable GetDataTable(string sql)
         {
             return GetDataTable(UnitOfWork.Connection.ExecuteReader(sql));
         }
-        
-        public DataTable GetDataTable(string sql, object entity)
+
+        public DataTable GetDataTable(string sql, object para)
         {
-            return GetDataTable(UnitOfWork.Connection.ExecuteReader(sql, entity));
+            return GetDataTable(UnitOfWork.Connection.ExecuteReader(sql, para));
         }
-        
+
         private DataTable GetDataTable(IDataReader dataReader)
         {
             using (dataReader)
@@ -138,6 +151,7 @@ namespace Catom.Sky.Component.Data.Query
             }
         }
 
+        #endregion
     }
 
 }

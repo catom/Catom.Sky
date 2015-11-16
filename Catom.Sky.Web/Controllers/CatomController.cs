@@ -26,7 +26,7 @@ namespace Catom.Sky.Web.Controllers
 
         public ActionResult Home()
         {
-            return View("Test");
+            return View();
         }
 
         public ActionResult NewUser()

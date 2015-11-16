@@ -40,12 +40,15 @@ create table `hrmanagement`.`TaxRate`(
 )
 COMMENT = '税率表';
 
+-- ---------------------- 创建索引，提高效率 -------
+create index `Salary_Month_Idx` on `Salary`(`Month`);
+
 
 -- ---------------------- 初始化数据 -------------
 -- 批量写入薪资表存储过程
 delimiter $$
 drop procedure if exists `InsertSalaryBatch` $$
-create procedure `InsertSalaryBatch`(count int, month varchar(6))
+create procedure `InsertSalaryBatcrateh`(count int, month varchar(6))
 begin
 	declare i int default 1;
 	while i< count do
@@ -53,73 +56,55 @@ begin
 			values(i, ( 3000 + (i%500 + (i*i%9)*1000)),month,now());
 		set i = i + 1;
 	end while;
-end
-$$
+end$$
 
 
 
--- 获取税率
-delimiter /$
-drop function if exists `GetRate` /$
-create function `GetRate`(Thre int out) returns decimal(4,3)
-begin    
-    declare MedicalRateP,EndowmentRateP,UnemploymentRateP,AccidentRateP,MaternityRateP,FundP decimal(4,3);
-    
-    select t.MedicalRateP, t.EndowmentRateP, t.UnemploymentRateP, t.AccidentRateP, t.MaternityRateP, t.FundP 
-		into MedicalRateP,EndowmentRateP,UnemploymentRateP,AccidentRateP,MaternityRateP,FundP 
-        from `TaxRate` t where id = 1;
-	return (MedicalRateP + EndowmentRateP + UnemploymentRateP + AccidentRateP + MaternityRateP + FundP);
-end /$
-    
-
--- 实发工资计算函数
-delimiter //
-drop function if exists `CalcNetSalary` //
-create function `CalcNetSalary`(preSalary decimal(8,2), TaxThreshold decimal(8,2)) returns decimal(8,2)
+-- 计算税后工资的动作写在一个存储过程中
+-- 只支持 按月 的重计算
+delimiter ///
+drop procedure if exists `CalcNetSalary` ///
+create procedure `CalcNetSalary`(ids varchar(1000)) 
 begin
-	declare result decimal(8,2) default 0;
-    declare should decimal default 0;	
-	declare rs1 decimal(8,2) default 0; -- 1. 先减去5险1金
+
+
+
+
+
+	-- 中间计算变量应纳税额
+	declare rate decimal(8,2) default 0; -- 5险1金的税额
+    declare TaxThreshold decimal(8,2);	-- 缴税阀值
+    declare MedicalRateP,EndowmentRateP,UnemploymentRateP,AccidentRateP,MaternityRateP,FundP decimal(4,3); 
+        
+	-- calc here.     
+	select t.TaxThreshold, t.MedicalRateP, t.EndowmentRateP, t.UnemploymentRateP, t.AccidentRateP, t.MaternityRateP, t.FundP 
+		into TaxThreshold, MedicalRateP,EndowmentRateP,UnemploymentRateP,AccidentRateP,MaternityRateP,FundP 
+		from `TaxRate` t where id = 1;
+        
+	set rate = (MedicalRateP + EndowmentRateP + UnemploymentRateP + AccidentRateP + MaternityRateP + FundP);
     
-	set rs1 = preSalary * GetRate();
+    update `salary` a set `NetSalary` = (
+		case when (a.preSalary - (a.preSalary * rate) - TaxThreshold) <=0 then a.preSalary - (a.preSalary * rate) 
+        when (a.preSalary - (a.preSalary * rate) - TaxThreshold) <=1500 then a.preSalary - (a.preSalary * rate) - (a.preSalary - (a.preSalary * rate) - TaxThreshold) *  0.03 
+        when (a.preSalary - (a.preSalary * rate) - TaxThreshold) <=4500 then a.preSalary - (a.preSalary * rate) - (a.preSalary - (a.preSalary * rate) - TaxThreshold) *  0.1 - 105 
+        when (a.preSalary - (a.preSalary * rate) - TaxThreshold) <=9000 then a.preSalary - (a.preSalary * rate) - (a.preSalary - (a.preSalary * rate) - TaxThreshold) *  0.2 - 555 
+        when (a.preSalary - (a.preSalary * rate) - TaxThreshold) <=35000 then a.preSalary - (a.preSalary * rate) - (a.preSalary - (a.preSalary * rate) - TaxThreshold) *  0.25 - 1005 
+        when (a.preSalary - (a.preSalary * rate) - TaxThreshold) <=55000 then a.preSalary - (a.preSalary * rate) - (a.preSalary - (a.preSalary * rate) - TaxThreshold) *  0.3 - 2755 
+        when (a.preSalary - (a.preSalary * rate) - TaxThreshold) <=80000 then a.preSalary - (a.preSalary * rate) - (a.preSalary - (a.preSalary * rate) - TaxThreshold) *  0.35 - 5505
+        else a.preSalary - (a.preSalary * rate) - (a.preSalary - (a.preSalary * rate) - TaxThreshold) *  0.45 - 13505 end
+	) where a.`Id` > 0 and ( case when ids <> '' then find_in_set(a.`Id`, ids) else 1 =1 end);
     
-    -- 2. 减去扣除数,得到可纳税额度
-    set should = preSalary - rs1 - TaxThreshold;
-    
-    -- 3. 可纳税额 乘以 税率 - 前阶段全纳税额
-    if should <= 0 then
-		set result = preSalary - rs1;        
-    elseif should <= 1500 then
-		set result = preSalary - rs1 - should *  0.03;
-    elseif should <= 4500 then
-		set result = preSalary - rs1 - should *  0.1 - 105;
-    elseif should <= 9000 then
-		set result = preSalary - rs1 - should *  0.2 - 555;
-    elseif should <= 35000 then
-		set result = preSalary - rs1 - should *  0.25 - 1005;
-    elseif should <= 55000 then
-		set result = preSalary - rs1 - should *  0.3 - 2755;
-    elseif should <= 80000 then
-		set result = preSalary - rs1 - should *  0.35 - 5505;
-    else
-		set result = preSalary - rs1 - should *  0.45 - 13505;
-    end if;
-	return result;
-END //
+END /// 
 
 
-set @rate=(select TaxThreshold  from TaxRate where id = 1);
-select 
+call CalcNetSalary('');
 
 
-select CalcNetSalary(8000,3500);
+select * from Salary ;
 
 
--- 单独计算实发工资
-update salary s set NetSalary = (select CalcNetSalary(s.preSalary)) where s.id < 10; 
 
 
-             
 
 
 

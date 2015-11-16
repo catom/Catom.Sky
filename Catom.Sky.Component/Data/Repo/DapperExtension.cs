@@ -12,6 +12,8 @@ using System.Collections;
 
 namespace Dapper.Contrib.Extensions
 {
+
+    #region 基于 Dapper 的 ORM 底层扩展接口。
     /// <summary>
     ///  基于Dapper 的 CRUD 扩展。
     /// </summary>
@@ -860,7 +862,9 @@ namespace Dapper.Contrib.Extensions
         }
         #endregion
     }
-    
+    #endregion
+
+
     #region 属性校验工具类。3 类属性：主键、可写（普通）、计算（如其他属性相加所得）
     // 表属性
     [AttributeUsage(AttributeTargets.Class)]
@@ -904,6 +908,7 @@ namespace Dapper.Contrib.Extensions
     }
 
     #endregion
+
 
     #region 数据库适配器
 

@@ -39,7 +39,11 @@ namespace Catom.Sky
     {
         static void Main(string[] args)
         {
-            new B();
+            decimal a;
+            a = (decimal)123/123;
+            Console.WriteLine(a.ToString("f2"));
+
+
         }
     }
 

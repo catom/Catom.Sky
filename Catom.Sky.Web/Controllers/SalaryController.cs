@@ -21,7 +21,7 @@ namespace Catom.Sky.Web.Controllers
                 var hrM = new HrManage(UnitOfWork);
 
                 //var data = hrM.GetSalary(req.request.Id);
-                var data = hrM.GetEmployeeAndSalary(req.reqArgs.Month).Data as IEnumerable<EmployeeAndSalary>;
+                var data = hrM.GetEmployeeAndSalary(req.filter.Month).Data as IEnumerable<EmployeeAndSalary>;
                 data = data.Where(e => e.EmployeeId < 10363);
 
                 if (data.Count() > 0)

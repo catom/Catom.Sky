@@ -44,7 +44,7 @@ namespace Catom.Sky.Web.Models
         public string key { get; set; }
 
         // 请求条件封装实体
-        public T reqArgs { get; set; }
+        public T filter { get; set; }
 
         // 分页器
         public PageRequest page { get; set; }
@@ -85,16 +85,47 @@ namespace Catom.Sky.Web.Models
             this.PageSize = pageSize;
         }
 
-        // Fields
+        // Fields with default value;
         private int _itemCount;
+        private int _pageSize;
+        private int _pageIndex;
 
-        // 依据实体属性生成 Limit 的 MySQL 语句。
-        public string ToSql()
+        // 总页数
+        public int PageCount { get; private set; }
+
+        // 页号
+        public int PageIndex
         {
-            return string.Format(" limit {0},{1}", (this.PageIndex - 1) * this.PageSize, this.PageSize);
+            get
+            {
+                return this._pageIndex;
+            }
+            private set
+            {
+                this._pageIndex = value;
+            }
         }
 
-        // Properties
+        // 页面量
+        public int PageSize
+        {
+            get
+            {
+                return this._pageSize;
+            }
+            private set
+            {
+                this._pageSize = value;
+            }
+        }
+
+        // 依据实体属性生成 Limit 的 MySQL 语句。
+        public string ToSQLString()
+        {
+            return string.Format(" limit {0},{1}", (this.PageIndex - 1) * this._pageSize, this._pageSize);
+        }
+
+        // 自动设置 PageCount
         public int ItemCount
         {
             get
@@ -106,7 +137,7 @@ namespace Catom.Sky.Web.Models
                 if (value > 0)
                 {
                     _itemCount = value;
-                    PageCount = ((_itemCount - 1) / this.PageSize) + 1;
+                    PageCount = ((_itemCount - 1) / this._pageSize) + 1;
                     if (PageIndex > PageCount)
                     {
                         PageIndex = PageCount;
@@ -115,14 +146,6 @@ namespace Catom.Sky.Web.Models
             }
         }
 
-        // 总页数
-        public int PageCount { get; private set; }
-
-        // 页面下标
-        public int PageIndex { get; private set; }
-
-        // 页面量
-        public int PageSize { get; private set; }
 
     }
 
