@@ -14,7 +14,7 @@ namespace Catom.Sky.Component.Data
 
         public UnitOfWork(string connString)
         {
-            this.Connection = new MySqlConnection(connString);
+            Connection = new MySqlConnection(connString);
         }
 
         // 打开连接
@@ -22,7 +22,7 @@ namespace Catom.Sky.Component.Data
         {
             if (Connection.State != ConnectionState.Open)
             {
-                this.Connection.Open();
+                Connection.Open();
             }
         }
 
@@ -30,14 +30,14 @@ namespace Catom.Sky.Component.Data
         {
             if (Connection.State != ConnectionState.Closed)
             {
-                this.Connection.Close();
+                Connection.Close();
             }
         }
 
         public void Dispose()
         {
-            this.Close();
-            this.Connection.Dispose();
+            Close();
+            Connection.Dispose();
         }
     }
 }

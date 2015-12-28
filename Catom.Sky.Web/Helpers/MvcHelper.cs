@@ -2,7 +2,6 @@
 using System.Configuration;
 using System.Web;
 using Microsoft.Practices.Unity;
-using Catom.Sky.Web.App_Start;
 
 namespace Catom.Sky.Web.Helpers
 {
@@ -21,7 +20,7 @@ namespace Catom.Sky.Web.Helpers
         {
             get
             {       
-                ICache DiCache = Bootstrapper.Instance.UnityContainer.Resolve<ICache>();
+                ICache DiCache = IocContainer.Instance.UnityContainer.Resolve<ICache>();
 
                 string value = DiCache.Get<string>("Version");
                 if (value == null)

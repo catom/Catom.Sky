@@ -6,7 +6,6 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Catom.Sky.Web.App_Start;
 
 namespace Catom.Sky.Web
 {
@@ -31,7 +30,7 @@ namespace Catom.Sky.Web
 
             #region 自定义配置
             // IoC 注册
-            Bootstrapper.Instance.Initialise();
+            IocContainer.Instance.Initialise();
             // 日志配置
             log4net.Config.XmlConfigurator.Configure(new System.IO.FileInfo(Server.MapPath("~/log4net.config")));
 

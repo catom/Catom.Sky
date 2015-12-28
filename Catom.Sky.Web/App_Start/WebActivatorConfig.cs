@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Linq;
-using System.Web.Mvc;
+using Catom.Sky.Web;
 using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Mvc;
 using Microsoft.Practices.Unity.Configuration;
 
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Catom.Sky.Web.App_Start.WebActivatorConfig), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(Catom.Sky.Web.App_Start.WebActivatorConfig), "Shutdown")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(WebActivatorConfig), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(WebActivatorConfig), "Shutdown")]
 
-namespace Catom.Sky.Web.App_Start
+namespace Catom.Sky.Web
 {
     /// <summary>
     ///  WebActivatorEx 作用等同 Global.asax.cs 启动配置。
