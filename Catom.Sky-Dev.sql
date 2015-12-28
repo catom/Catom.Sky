@@ -67,10 +67,6 @@ drop procedure if exists `CalcNetSalary` ///
 create procedure `CalcNetSalary`(ids varchar(1000)) 
 begin
 
-
-
-
-
 	-- 中间计算变量应纳税额
 	declare rate decimal(8,2) default 0; -- 5险1金的税额
     declare TaxThreshold decimal(8,2);	-- 缴税阀值

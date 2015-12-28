@@ -39,9 +39,11 @@ namespace Catom.Sky
     {
         static void Main(string[] args)
         {
-            decimal a;
-            a = (decimal)123/123;
-            Console.WriteLine(a.ToString("f2"));
+            var li1 = new List<string>();
+            li1 = null;
+            var li2 = new List<string>();
+            li2.Add("a");
+            Console.WriteLine(li2.Except(li1).First());
 
 
         }

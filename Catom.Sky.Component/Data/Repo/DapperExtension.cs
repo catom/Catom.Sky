@@ -250,7 +250,7 @@ namespace Dapper.Contrib.Extensions
                 }
 
                 var tbNameFormat = escape == null ? tbName : string.Format("{0}{1}{2}", escape.LEscape, tbName, escape.REscape);
-                sql = String.Format("insert into {0} ({1}) values ({2})", tbNameFormat, sbColumnList.ToString(), sbParameterList.ToString());
+                sql = String.Format("insert into {0} ({1}) values ({2})", tbNameFormat, sbColumnList, sbParameterList);
                 InsertQueries[type.TypeHandle] = sql;
             }
             return sql;
