@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Catom.Sky.Component.Repo;
+﻿using System.Collections.Generic;
 using Catom.Sky.Component.Data;
 using Catom.Sky.Component.Data.Query;
-using Dapper.Contrib.Extensions;
+using Catom.Sky.Component.Data.Repo;
 using Catom.Sky.Services.Entity;
 
 namespace Catom.Sky.Services.HrM
 {
     public class SalaryRepo : BaseRepository<Salary>
     {
-        private QueryManager queryManager;
+        private readonly QueryManager _queryManager;
 
         public SalaryRepo(IUnitOfWork uw) : base(uw) {
-            this.queryManager = new QueryManager(uw);
+            _queryManager = new QueryManager(uw);
         }
 
         #region Extend your crud methods here.
@@ -44,7 +39,7 @@ namespace Catom.Sky.Services.HrM
             }
 
             var sql = baseSql + where;
-            var list = queryManager.GetList<Salary>(sql, param);
+            var list = _queryManager.GetList<Salary>(sql, param);
             return list;
         }
 
@@ -72,7 +67,7 @@ namespace Catom.Sky.Services.HrM
             }
 
             var sql = baseSql  + where;
-            return queryManager.GetList<EmployeeAndSalary>(sql, param);
+            return _queryManager.GetList<EmployeeAndSalary>(sql, param);
         }
 
 

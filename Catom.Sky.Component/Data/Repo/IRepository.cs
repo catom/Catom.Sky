@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace Catom.Sky.Component.Repo
+namespace Catom.Sky.Component.Data.Repo
 {
     interface IRepository<T> where T : class
     {
@@ -12,12 +8,12 @@ namespace Catom.Sky.Component.Repo
         ///  获取所有Entity
         /// </summary>
         /// <returns>实体集</returns>
-        IEnumerable<T> GetSome(string where = "", string orderby = "", string limit = "");
+        IEnumerable<T> Get(string where = "", string orderby = "", string limit = "");
 
         /// <summary>
         ///  根据ID查询实体
         /// </summary>
-        /// <param name="ID">实体ID</param>
+        /// <param name="id">实体ID</param>
         /// <returns>实体</returns>
         T Get(long id);
 
@@ -37,7 +33,7 @@ namespace Catom.Sky.Component.Repo
         /// <summary>
         ///  删除实体
         /// </summary>
-        /// <param name="ID">实体ID</param>
+        /// <param name="entity"></param>
         bool Delete(T entity);
     }
 }

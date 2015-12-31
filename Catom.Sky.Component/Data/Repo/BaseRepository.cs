@@ -1,40 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Dapper;
 using Dapper.Contrib.Extensions;
-using Catom.Sky.Component.Data;
 
-namespace Catom.Sky.Component.Repo
+namespace Catom.Sky.Component.Data.Repo
 {
     public abstract class BaseRepository<T> : IRepository<T> where T : class
     {
         private IUnitOfWork UnitOfWork { set; get; }
 
-        public BaseRepository(IUnitOfWork uw)
+        protected BaseRepository(IUnitOfWork uw)
         {
-            this.UnitOfWork = uw;
+            UnitOfWork = uw;
         }
 
         public virtual T Get(long id)
         {
-            return this.UnitOfWork.Connection.GetOne<T>(id);
+            return UnitOfWork.Connection.Get<T>(id);
         }
 
-        public virtual IEnumerable<T> GetSome(string where = "", string orderby = "", string limit = " limit 10")
+        public virtual IEnumerable<T> Get(string where = "", string orderby = "", string limit = " limit 10")
         {
-            return this.UnitOfWork.Connection.GetSome<T>(where, orderby, limit);
+            return UnitOfWork.Connection.Get<T>(where, orderby, limit);
         }
 
         public virtual long Create(T entity)
         {
-            return this.UnitOfWork.Connection.InsertOne<T>(entity);
+            return UnitOfWork.Connection.Create(entity);
         }
         
         public virtual bool Update(T entity)
         {
-            return this.UnitOfWork.Connection.Update<T>(entity);
+            return UnitOfWork.Connection.Update(entity);
         }
         
         /// <summary>
@@ -44,27 +40,27 @@ namespace Catom.Sky.Component.Repo
         /// <returns></returns>
         public virtual bool Delete(T entity)
         {
-            return this.UnitOfWork.Connection.DeleteOne<T>(entity);
+            return UnitOfWork.Connection.Delete(entity);
         }
 
         /// <summary>
         ///  批量按主键删除。
         /// </summary>
-        /// <param name="IDs"></param>
+        /// <param name="ids"></param>
         /// <returns></returns>
-        public virtual bool DeleteSome(IEnumerable<long> IDs)
+        public virtual bool DeleteSome(IEnumerable<long> ids)
         {
-            return this.UnitOfWork.Connection.DeleteSome<T>(IDs) > 0;
+            return UnitOfWork.Connection.Delete<T>(ids) > 0;
         }
         
         protected int Execute(string sql, object obj)
         {
-            return this.UnitOfWork.Connection.Execute(sql, obj);
+            return UnitOfWork.Connection.Execute(sql, obj);
         }
 
         protected long ExecuteScalar(string sql, object obj)
         {
-            return this.UnitOfWork.Connection.ExecuteScalar<long>(sql, obj);
+            return UnitOfWork.Connection.ExecuteScalar<long>(sql, obj);
         }
     }
 }

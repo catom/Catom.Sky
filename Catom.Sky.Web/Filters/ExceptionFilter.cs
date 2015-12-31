@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Text;
 using Catom.Sky.Component.Util;
@@ -16,7 +13,7 @@ namespace Catom.Sky.Web.Filters
             {
                 StringBuilder sb = new StringBuilder();
                 sb.Append("|Url:");
-                sb.Append(filterContext.HttpContext.Request.Url.AbsoluteUri);
+                sb.Append(filterContext.HttpContext.Request.Url == null ? "" : filterContext.HttpContext.Request.Url.AbsoluteUri);
                 sb.Append("\r\n");
                 sb.Append(filterContext.Exception.Message.Replace("<", string.Empty).Replace(">", string.Empty));
                 sb.Append("\r\n");
@@ -40,7 +37,9 @@ namespace Catom.Sky.Web.Filters
                 for (int i = 0; i < filterContext.HttpContext.Request.Headers.Keys.Count; i++)
                 {
                     var keyName = filterContext.HttpContext.Request.Headers.AllKeys[i];
-                    sbHeaders.Append(keyName + ":" + filterContext.HttpContext.Request.Headers.GetValues(keyName)[0] + " ");
+                    var strings = filterContext.HttpContext.Request.Headers.GetValues(keyName);
+                    if (strings != null)
+                        sbHeaders.Append(keyName + ":" + strings[0] + " ");
                 }
 
                 // NTODO 写入日志

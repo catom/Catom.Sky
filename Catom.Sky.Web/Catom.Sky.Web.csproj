@@ -197,7 +197,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AuthConfig.cs" />
-    <Compile Include="App_Start\Bootstrapper.cs" />
+    <Compile Include="App_Start\IocContainer.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -266,8 +266,6 @@
     <Content Include="app\libs\underscore\underscore-min.js" />
     <Content Include="app\libs\underscore\underscore.js" />
     <Content Include="app\modules\base\directive.js" />
-    <Content Include="App_Start\All_Desc.txt" />
-    <Content Include="App_Start\系统架构描述.txt" />
     <Content Include="Content\css\bootstrap\bootstrap-overrides.css" />
     <Content Include="Content\css\bootstrap\bootstrap-responsive.css" />
     <Content Include="Content\css\bootstrap\bootstrap.css" />
@@ -1162,7 +1160,6 @@
     <Content Include="Content\js\underscore\underscore-min.js" />
     <Content Include="Content\js\underscore\underscore.js" />
     <Content Include="Content\js\wysihtml5-0.3.0.js" />
-    <Content Include="Content\前端学习篇.txt" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Views\Shared\Test.cshtml" />

@@ -19,6 +19,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catom.Sky.Services", "Catom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catom.Sky.WindowsService", "Catom.Sky.WindowsService\Catom.Sky.WindowsService.csproj", "{78AFAAA2-BB0C-46E5-9A84-7284C9C7CF69}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{FBAD8EB7-8059-4A60-B911-592F0DEDCE2C}"
+	ProjectSection(SolutionItems) = preProject
+		Catom.Sky.Component\Docs\Architecture_Desc.txt = Catom.Sky.Component\Docs\Architecture_Desc.txt
+		Catom.Sky.Component\Docs\ORM-description.txt = Catom.Sky.Component\Docs\ORM-description.txt
+		Orm.txt = Orm.txt
+		Catom.Sky.Component\Docs\前端学习篇.txt = Catom.Sky.Component\Docs\前端学习篇.txt
+		Catom.Sky.Component\Docs\系统架构描述.txt = Catom.Sky.Component\Docs\系统架构描述.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

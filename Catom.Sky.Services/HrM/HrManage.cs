@@ -1,35 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Catom.Sky.Component.Repo;
 using Catom.Sky.Component.Data;
-using Dapper.Contrib.Extensions;
 using Catom.Sky.Services.Entity;
 
 namespace Catom.Sky.Services.HrM
 {
     public class HrManage
     {
-        private EmployeeRepo employeeRepo;
-        private SalaryRepo salaryRepo;
+        private readonly EmployeeRepo _employeeRepo;
+        private readonly SalaryRepo _salaryRepo;
 
         public HrManage(IUnitOfWork uw)
         {
-            this.employeeRepo = new EmployeeRepo(uw);
-            this.salaryRepo = new SalaryRepo(uw);
+            _employeeRepo = new EmployeeRepo(uw);
+            _salaryRepo = new SalaryRepo(uw);
         }
 
         #region 1. Crud methods for Employee.
         public Employee GetEmployee(long id)
         {
-            return employeeRepo.Get(id);
+            return _employeeRepo.Get(id);
         }
 
         public IEnumerable<Employee> GetAllEmployee()
         {
-            return employeeRepo.GetSome();
+            return _employeeRepo.Get();
         }
 
 
@@ -40,7 +35,7 @@ namespace Catom.Sky.Services.HrM
         {
             try
             {
-                var salary = salaryRepo.Get(id);
+                var salary = _salaryRepo.Get(id);
                 if (salary.Id != id)
                 {
                     return new ServiceResult(false, "未获取到相关数据");
@@ -58,7 +53,7 @@ namespace Catom.Sky.Services.HrM
         {
             try
             {
-                var salaryList = salaryRepo.GetSalaryList(id);
+                var salaryList = _salaryRepo.GetSalaryList(id);
                 if (salaryList == null)
                 {
                     return new ServiceResult(false, "未获取到相关数据");
@@ -76,7 +71,7 @@ namespace Catom.Sky.Services.HrM
         {
             try
             {
-                var salaryList = salaryRepo.GetSalaryList(0, month);
+                var salaryList = _salaryRepo.GetSalaryList(0, month);
                 if (salaryList == null)
                 {
                     return new ServiceResult(false, "未获取到相关数据");
@@ -94,7 +89,7 @@ namespace Catom.Sky.Services.HrM
         {
             try
             {
-                var salaryList = salaryRepo.GetSalaryList(employeeId, month);
+                var salaryList = _salaryRepo.GetSalaryList(employeeId, month);
                 if (salaryList == null)
                 {
                     return new ServiceResult(false, "未获取到相关数据");
@@ -112,7 +107,7 @@ namespace Catom.Sky.Services.HrM
         {
             try
             {
-                var salaryList = salaryRepo.GetEmployeeAndSalaryList(0, month);
+                var salaryList = _salaryRepo.GetEmployeeAndSalaryList(0, month);
                 if (salaryList == null)
                 {
                     return new ServiceResult(false, "未获取到相关数据");
@@ -129,7 +124,7 @@ namespace Catom.Sky.Services.HrM
         {
             try
             {
-                var salaryList = salaryRepo.GetEmployeeAndSalaryList(employeeId, month);
+                var salaryList = _salaryRepo.GetEmployeeAndSalaryList(employeeId, month);
                 if (salaryList == null)
                 {
                     return new ServiceResult(false, "未获取到相关数据");

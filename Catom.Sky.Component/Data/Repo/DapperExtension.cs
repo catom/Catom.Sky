@@ -7,9 +7,8 @@ using System.Text;
 using System.Collections.Concurrent;
 using System.Reflection.Emit;
 using System.Threading;
-using Dapper;
-using System.Collections;
 
+// ReSharper disable once CheckNamespace
 namespace Dapper.Contrib.Extensions
 {
 
@@ -27,7 +26,7 @@ namespace Dapper.Contrib.Extensions
         // 需计算字段容器
         private static readonly ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>> ComputedProperties = new ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>>();
         // 可写字段（普通字段 = 所有字段 - 主键 - 需计算字段）
-        private static readonly ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>> WriteableProperties = new ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>>();
+        //private static readonly ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>> WriteableProperties = new ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>>();
         // 查询语句
         private static readonly ConcurrentDictionary<RuntimeTypeHandle, string> GetQueries = new ConcurrentDictionary<RuntimeTypeHandle, string>();
         // 插入语句
@@ -83,12 +82,13 @@ namespace Dapper.Contrib.Extensions
             // 双管齐下，避免失误。
             var properties = PropertyDicCache(type);
             // 方法一
-            var keys = properties.Where(p => p.GetCustomAttributes(true).Any(a => a is PrimaryKeyAttribute)).ToList();
+            var propertyInfos = properties as PropertyInfo[] ?? properties.ToArray();
+            var keys = propertyInfos.Where(p => p.GetCustomAttributes(true).Any(a => a is PrimaryKeyAttribute)).ToList();
 
             // 方法二
             if (keys.Count == 0)
             {
-                var idProp = properties.Where(p => p.Name.ToLower() == "id" || p.Name.ToLower() == "orgid").FirstOrDefault();
+                var idProp = propertyInfos.FirstOrDefault(p => p.Name.ToLower() == "id" || p.Name.ToLower() == "orgid");
                 if (idProp != null)
                 {
                     keys.Add(idProp);
@@ -189,13 +189,14 @@ namespace Dapper.Contrib.Extensions
             {
                 // 1. 是否有主键
                 var keys = PKeyDicCache(type);
-                if (keys.Count() > 1)
+                var propertyInfos = keys as PropertyInfo[] ?? keys.ToArray();
+                if (propertyInfos.Count() > 1)
                     throw new DataException("Get<T> only supports an entity with a single [Key] property");
-                if (keys.Count() == 0)
+                if (propertyInfos.Count() == 0)
                     throw new DataException("Get<T> only supports en entity with a [Key] property");
 
                 // 2. 限支持单一主键
-                var onlyKey = keys.First();
+                var onlyKey = propertyInfos.First();
 
                 // 3. 表名
                 var tbName = GetTableName(type);
@@ -230,22 +231,23 @@ namespace Dapper.Contrib.Extensions
                 var computedProperties = ComputedPropertiesCache(type);
                 var propertyDicExceptKeyAndComputed = properties.Except(keys.Union(computedProperties));
 
-                for (var i = 0; i < propertyDicExceptKeyAndComputed.Count(); i++)
+                var dicExceptKeyAndComputed = propertyDicExceptKeyAndComputed as PropertyInfo[] ?? propertyDicExceptKeyAndComputed.ToArray();
+                for (var i = 0; i < dicExceptKeyAndComputed.Count(); i++)
                 {
-                    var property = propertyDicExceptKeyAndComputed.ElementAt(i);
+                    var property = dicExceptKeyAndComputed.ElementAt(i);
                     var keyName = escape == null ? property.Name : string.Format("{0}{1}{2}", escape.LEscape, property.Name, escape.REscape);
                     sbColumnList.AppendFormat("{0}", keyName);
-                    if (i < propertyDicExceptKeyAndComputed.Count() - 1)
+                    if (i < dicExceptKeyAndComputed.Count() - 1)
                         sbColumnList.Append(", ");
                 }
 
                 // 3. 循环，将所有普通字段写入sql格式
                 var sbParameterList = new StringBuilder(null);
-                for (var i = 0; i < propertyDicExceptKeyAndComputed.Count(); i++)
+                for (var i = 0; i < dicExceptKeyAndComputed.Count(); i++)
                 {
-                    var property = propertyDicExceptKeyAndComputed.ElementAt(i);
+                    var property = dicExceptKeyAndComputed.ElementAt(i);
                     sbParameterList.AppendFormat("@{0}", property.Name);
-                    if (i < propertyDicExceptKeyAndComputed.Count() - 1)
+                    if (i < dicExceptKeyAndComputed.Count() - 1)
                         sbParameterList.Append(", ");
                 }
 
@@ -269,7 +271,8 @@ namespace Dapper.Contrib.Extensions
             {
                 // 1. 取主键、表名
                 var keys = PKeyDicCache(type);
-                if (!keys.Any())
+                var propertyInfos = keys as PropertyInfo[] ?? keys.ToArray();
+                if (!propertyInfos.Any())
                     throw new ArgumentException("Entity must have at least one [Key] property");
 
                 var tbName = GetTableName(type);
@@ -282,24 +285,25 @@ namespace Dapper.Contrib.Extensions
                 var properties = PropertyDicCache(type);
                 var computedProperties = ComputedPropertiesCache(type);
                 // 得到普通属性
-                var nonIdProps = properties.Except(keys.Union(computedProperties));
+                var nonIdProps = properties.Except(propertyInfos.Union(computedProperties));
 
-                if (nonIdProps.Count() == 0)
+                var idProps = nonIdProps as PropertyInfo[] ?? nonIdProps.ToArray();
+                if (!idProps.Any())
                     throw new ArgumentException("Entity must have at least one field that can update!");
                 // 循环拼接
-                for (var i = 0; i < nonIdProps.Count(); i++)
+                for (var i = 0; i < idProps.Count(); i++)
                 {
-                    var property = nonIdProps.ElementAt(i);
+                    var property = idProps.ElementAt(i);
                     var keyName = escape == null ? property.Name : string.Format("{0}{1}{2}", escape.LEscape, property.Name, escape.REscape);
                     sb.AppendFormat("{0} = @{1}", keyName, property.Name);
-                    if (i < nonIdProps.Count() - 1)
+                    if (i < idProps.Count() - 1)
                         sb.AppendFormat(", ");
                 }
                 // 主键条件
                 sb.Append(" where ");
-                for (var i = 0; i < keys.Count(); i++)
+                for (var i = 0; i < propertyInfos.Count(); i++)
                 {
-                    var property = keys.ElementAt(i);
+                    var property = propertyInfos.ElementAt(i);
                     var keyName = escape == null ? property.Name : string.Format("{0}{1}{2}", escape.LEscape, property.Name, escape.REscape);
                     sb.AppendFormat("{0} = @{1}", keyName, property.Name);
                     if (i < PKeyDic.Count() - 1)
@@ -312,19 +316,23 @@ namespace Dapper.Contrib.Extensions
         }
 
         /// <summary>
-        ///   选择性更新字段的SQL语句格式器。<br>注：此sql无Dic容器。  
+        ///   选择性更新字段的SQL语句格式器。<br/>
+        ///     注：此sql无Dic容器。  
         /// </summary>
+        /// <param name="type"></param>
         /// <param name="entity">所需修改的实体数据</param>
+        /// <param name="escape"></param>
         /// <returns></returns>
         private static string UpdatePartQueryFormatter(Type type, object entity, SqlEscape escape = null)
         {
             var keys = PKeyDicCache(type);
-            if (!keys.Any())
+            var propertyInfos = keys as PropertyInfo[] ?? keys.ToArray();
+            if (!propertyInfos.Any())
                 throw new ArgumentException("Entity must have at least one [Key] property");
 
             var tbName = GetTableName(type);
             var tbNameFormat = escape == null ? tbName : string.Format("{0}{1}{2}", escape.LEscape, tbName, escape.REscape);
-            var keyNames = keys.Select(p => p.Name.ToLower());
+            var keyNames = propertyInfos.Select(p => p.Name.ToLower());
 
             var sb = new StringBuilder();
             sb.AppendFormat("update {0} set ", tbNameFormat);
@@ -343,23 +351,24 @@ namespace Dapper.Contrib.Extensions
             }
 
             // 拼接所有普通字段
-            for (var i = 0; i < nonIdPropNames.Count(); i++)
+            var idPropNames = nonIdPropNames as string[] ?? nonIdPropNames.ToArray();
+            for (var i = 0; i < idPropNames.Length; i++)
             {
-                var property = nonIdPropNames.ElementAt(i);
+                var property = idPropNames.ElementAt(i);
                 var keyName = escape == null ? property : string.Format("{0}{1}{2}", escape.LEscape, property, escape.REscape);
                 sb.AppendFormat("{0} = @{1}", keyName, property);
-                if (i < nonIdPropNames.Count() - 1)
+                if (i < idPropNames.Count() - 1)
                     sb.AppendFormat(", ");
             }
             sb.Append(" where ");
 
             // 拼接条件字段（主键）
-            for (var i = 0; i < keys.Count(); i++)
+            for (var i = 0; i < propertyInfos.Count(); i++)
             {
-                var property = keys.ElementAt(i);
+                var property = propertyInfos.ElementAt(i);
                 var keyName = escape == null ? property.Name : string.Format("{0}{1}{2}", escape.LEscape, property.Name, escape.REscape);
                 sb.AppendFormat("{0} = @{1}", keyName, property.Name);
-                if (i < keys.Count() - 1)
+                if (i < propertyInfos.Count() - 1)
                     sb.AppendFormat(" and ");
             }
             return sb.ToString();
@@ -368,6 +377,7 @@ namespace Dapper.Contrib.Extensions
         /// <summary>
         ///  按条件选择性更新数据的 SQL 语句格式器。<b>可更新多条</b>
         /// </summary>
+        /// <param name="type"></param>
         /// <param name="source">更新字段</param>
         /// <param name="condition">条件字段（未必主键）</param>
         /// <param name="escape"></param>
@@ -382,12 +392,13 @@ namespace Dapper.Contrib.Extensions
 
             // 拼接修改字段
             IEnumerable<string> nonIdPropNames = source.Select(p => p.Key);
-            for (var i = 0; i < nonIdPropNames.Count(); i++)
+            var idPropNames = nonIdPropNames as string[] ?? nonIdPropNames.ToArray();
+            for (var i = 0; i < idPropNames.Length; i++)
             {
-                var property = nonIdPropNames.ElementAt(i);
+                var property = idPropNames.ElementAt(i);
                 var keyName = escape == null ? property : string.Format("{0}{1}{2}", escape.LEscape, property, escape.REscape);
                 sb.AppendFormat("{0} = @{1}", keyName, property);
-                if (i < nonIdPropNames.Count() - 1)
+                if (i < idPropNames.Count() - 1)
                     sb.AppendFormat(", ");
             }
             sb.Append(" where ");
@@ -425,7 +436,8 @@ namespace Dapper.Contrib.Extensions
             if (!DeleteQueries.TryGetValue(type.TypeHandle, out sql))
             {
                 var keys = PKeyDicCache(type);
-                if (!keys.Any())
+                var propertyInfos = keys as PropertyInfo[] ?? keys.ToArray();
+                if (!propertyInfos.Any())
                     throw new ArgumentException("Entity must have at least one [Key] property");
 
                 var sb = new StringBuilder();
@@ -434,12 +446,12 @@ namespace Dapper.Contrib.Extensions
                 sb.Append(string.Format(@"delete * from {0} where ", tbNameFormat));
 
                 // 拼接条件字段（主键）
-                for (var i = 0; i < keys.Count(); i++)
+                for (var i = 0; i < propertyInfos.Count(); i++)
                 {
-                    var property = keys.ElementAt(i);
+                    var property = propertyInfos.ElementAt(i);
                     var keyName = escape == null ? property.Name : string.Format("{0}{1}{2}", escape.LEscape, property.Name, escape.REscape);
                     sb.AppendFormat("{0} = @{1}", keyName, property.Name);
-                    if (i < keys.Count() - 1)
+                    if (i < propertyInfos.Count() - 1)
                         sb.AppendFormat(" and ");
                 }
                 sql = sb.ToString();
@@ -450,20 +462,22 @@ namespace Dapper.Contrib.Extensions
         #endregion
 
         #region 4. CRUD 的映射实现机制，System.Data.IDBConnection 的扩展方法。原理：dapper 的参数化传参@property.
+
         /// <summary>
         ///  获取一条数据。
         /// </summary>
         /// <typeparam name="T">所查实体（表名）</typeparam>
         /// <param name="connection"></param>
-        /// <param name="id">所查元素的主键值</param>
+        /// <param name="keyValue"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
         /// <returns>所取的对象。</returns>
-        public static T GetOne<T>(this IDbConnection connection, dynamic keyValue, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
+        public static T Get<T>(this IDbConnection connection, dynamic keyValue, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
         {
-            T obj = null;
             var type = typeof(T);
 
             // 1. 构造查询语句
-            string querySQL = GetQueryFormatter(type);
+            var querySql = GetQueryFormatter(type);
             // 此处改成 Dictionary 会有什么不同？
             string key = PKeyDicCache(type).First().Name;
             var dynParms = new DynamicParameters();
@@ -471,15 +485,15 @@ namespace Dapper.Contrib.Extensions
 
             // 2. 返回查询结果
             if (!type.IsInterface)
-                return connection.Query<T>(querySQL, dynParms, transaction: transaction, commandTimeout: commandTimeout).FirstOrDefault();
+                return connection.Query<T>(querySql, dynParms, transaction, commandTimeout: commandTimeout).FirstOrDefault();
 
             // 为什么转型为 Dictionary？
-            var res = connection.Query(querySQL, dynParms).FirstOrDefault() as IDictionary<string, object>;
+            var res = connection.Query(querySql, dynParms).FirstOrDefault() as IDictionary<string, object>;
 
             if (res == null)
-                return (T)((object)null);
+                return null;
 
-            obj = ProxyGenerator.GetInterfaceProxy<T>();
+            var obj = ProxyGenerator.GetInterfaceProxy<T>();
 
             foreach (var property in PropertyDicCache(type))
             {
@@ -495,11 +509,14 @@ namespace Dapper.Contrib.Extensions
         ///  按条件取数据。
         /// </summary>
         /// <typeparam name="T">实体类（表名）</typeparam>
+        /// <param name="connection"></param>
         /// <param name="where">SQL where 条件</param>
         /// <param name="orderby">SQL orderby 条件</param>
         /// <param name="limit">SQL 数量限制条件</param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
         /// <returns></returns>
-        public static IEnumerable<T> GetSome<T>(this IDbConnection connection, string where = "", string orderby = "", string limit = "", IDbTransaction transaction = null, int? commandTimeout = null) where T : class
+        public static IEnumerable<T> Get<T>(this IDbConnection connection, string where = "", string orderby = "", string limit = "", IDbTransaction transaction = null, int? commandTimeout = null) where T : class
         {
             var type = typeof(T);
             var cacheType = typeof(List<T>);
@@ -513,9 +530,10 @@ namespace Dapper.Contrib.Extensions
             if (!GetQueries.TryGetValue(cacheType.TypeHandle, out sql))
             {
                 var keys = PKeyDicCache(type);
-                if (keys.Count() > 1)
+                var propertyInfos = keys as PropertyInfo[] ?? keys.ToArray();
+                if (propertyInfos.Length > 1)
                     throw new DataException("Get<T> only supports an entity with a single [Key] property");
-                if (!keys.Any())
+                if (!propertyInfos.Any())
                     throw new DataException("Get<T> only supports en entity with a [Key] property");
 
                 // TODO: query information schema and only select fields that are both in information schema and underlying class / interface 
@@ -554,9 +572,12 @@ namespace Dapper.Contrib.Extensions
         /// <summary>
         ///  将单个实体对象的各个属性写入对应表的各个字段。
         /// </summary>
+        /// <param name="connection"></param>
         /// <param name="entityToInsert">所需插入的实体对象</param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
         /// <returns>写入数据所对应的ID</returns>
-        public static long InsertOne<T>(this IDbConnection connection, T entityToInsert, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
+        public static long Create<T>(this IDbConnection connection, T entityToInsert, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
         {
             ISqlAdapter adapter = GetAdapter(connection);
             SqlEscape escape = GetEscape(connection);
@@ -568,10 +589,11 @@ namespace Dapper.Contrib.Extensions
         ///  批量写入实体对象。
         /// </summary>
         /// <typeparam name="T">实体类型（表名）</typeparam>
+        /// <param name="connection"></param>
         /// <param name="entitiesToInsert">所需插入的实体集</param>
         /// <param name="transaction"></param>
         /// <returns>所写入的数据的条数</returns>
-        public static int InsertSome<T>(this IDbConnection connection, IEnumerable<T> entitiesToInsert, IDbTransaction transaction = null) where T : class
+        public static int Create<T>(this IDbConnection connection, IEnumerable<T> entitiesToInsert, IDbTransaction transaction = null) where T : class
         {
             SqlEscape escape = GetEscape(connection);
             var cmd = InsertQueryFormatter(typeof(T), escape);
@@ -582,7 +604,10 @@ namespace Dapper.Contrib.Extensions
         ///  按实体，修改一条表数据。
         /// </summary>
         /// <typeparam name="T">实体类型（表名）</typeparam>
+        /// <param name="connection"></param>
         /// <param name="entityToUpdate">实体对象（修改数据载体）</param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
         /// <returns>是否修改成功</returns>
         public static bool Update<T>(this IDbConnection connection, T entityToUpdate, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
         {
@@ -602,12 +627,14 @@ namespace Dapper.Contrib.Extensions
         ///  按实体更新。<b>更新一条</b>
         /// </summary>
         /// <typeparam name="T">实体类型（表名）</typeparam>
+        /// <param name="connection"></param>
         /// <param name="entityToUpdate">更新的实体对象</param>
+        /// <param name="transaction"></param>
         /// <returns>是否更新成功</returns>
         public static bool UpdatePart<T>(this IDbConnection connection, object entityToUpdate, IDbTransaction transaction = null) where T : class
         {
             var type = typeof(T);
-            SqlEscape escape = GetEscape(connection);
+            var escape = GetEscape(connection);
             var cmd = UpdatePartQueryFormatter(type, entityToUpdate, escape);
             return connection.Execute(cmd, entityToUpdate, transaction) > 0;
         }
@@ -616,13 +643,15 @@ namespace Dapper.Contrib.Extensions
         ///  按主键条件，选择性更新字段。<b>修改一条或一组。</b>
         /// </summary>
         /// <typeparam name="T">实体类型（表名）</typeparam>
+        /// <param name="connection"></param>
         /// <param name="source">更新字段</param>
         /// <param name="condition">条件（主键）</param>
+        /// <param name="transaction"></param>
         /// <returns>更新的条数</returns>
         public static int UpdatePart<T>(this IDbConnection connection, IDictionary<string, object> source, IDictionary<string, object> condition, IDbTransaction transaction = null) where T : class
         {
             var type = typeof(T);
-            SqlEscape escape = GetEscape(connection);
+            var escape = GetEscape(connection);
             var cmd = UpdatePartQueryFormatter(type, source, condition, escape);
             return connection.Execute(cmd, source.Union(condition), transaction);
         }
@@ -631,12 +660,11 @@ namespace Dapper.Contrib.Extensions
         ///  按实体对象删除一条数据。
         /// </summary>
         /// <returns>是否删除成功</returns>
-        public static bool DeleteOne<T>(this IDbConnection connection, T entityToDelete, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
+        public static bool Delete<T>(this IDbConnection connection, T entityToDelete, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
         {
-            ISqlAdapter adapter = GetAdapter(connection);
-            SqlEscape escape = GetEscape(connection);
+            var escape = GetEscape(connection);
             var cmd = DeleteQueryFormatter(typeof(T), escape);
-            var deleted = connection.Execute(cmd, entityToDelete, transaction: transaction, commandTimeout: commandTimeout);
+            var deleted = connection.Execute(cmd, entityToDelete, transaction, commandTimeout);
             return deleted > 0;
         }
 
@@ -645,22 +673,19 @@ namespace Dapper.Contrib.Extensions
         /// </summary>
         /// <typeparam name="T">实体类</typeparam>
         /// <param name="connection"></param>
-        /// <param name="IDs">所需删除的主键列</param>
+        /// <param name="ids">所需删除的主键列</param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
         /// <returns></returns>
-        public static int DeleteSome<T>(this IDbConnection connection, IEnumerable<long> IDs, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
+        public static int Delete<T>(this IDbConnection connection, IEnumerable<long> ids, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
         {
             var type = typeof(T);
             var tbName = GetTableName(type);
             var escape = GetEscape(connection);
             var tbNameFormat = escape == null ? tbName : string.Format("{0}{1}{2}", escape.LEscape, tbName, escape.REscape);
-            var where = " where id in( 0,";
-            foreach (long id in IDs)
-            {
-                where += id + ",";
-            }
-            where += where.TrimEnd(',') + ")";
+            var where = ids.Aggregate(" where id in( 0,", (current, id) => current + (id + ",")).TrimEnd(',') + ")";
             var statement = String.Format("delete from {0} {1}", tbNameFormat, where);
-            return connection.Execute(statement, null, transaction: transaction, commandTimeout: commandTimeout);
+            return connection.Execute(statement, null, transaction, commandTimeout);
         }
 
         /// <summary>
@@ -690,15 +715,13 @@ namespace Dapper.Contrib.Extensions
             private static readonly Dictionary<Type, object> TypeCache = new Dictionary<Type, object>();
 
             /// <summary>
-            ///  获取动态创建的指定名称的程序集
+            ///  获取动态创建的指定名称的程序集。
             /// </summary>
             /// <param name="name"></param>
             /// <returns></returns>
             private static AssemblyBuilder GetAsmBuilder(string name)
             {
-                var assemblyBuilder = Thread.GetDomain().DefineDynamicAssembly(new AssemblyName { Name = name },
-                    AssemblyBuilderAccess.Run);       //NOTE: to save, use RunAndSave
-
+                var assemblyBuilder = Thread.GetDomain().DefineDynamicAssembly(new AssemblyName { Name = name }, AssemblyBuilderAccess.Run); //NOTE: to save, use RunAndSave
                 return assemblyBuilder;
             }
 
@@ -709,7 +732,7 @@ namespace Dapper.Contrib.Extensions
             /// <returns></returns>
             public static T GetInterfaceProxy<T>()
             {
-                Type typeOfT = typeof(T);
+                var typeOfT = typeof(T);
 
                 object k;
                 if (TypeCache.TryGetValue(typeOfT, out k))
@@ -722,7 +745,7 @@ namespace Dapper.Contrib.Extensions
 
                 var moduleBuilder = assemblyBuilder.DefineDynamicModule("SqlMapperExtensions." + typeOfT.Name); //NOTE: to save, add "asdasd.dll" parameter
 
-                var interfaceType = typeof(Dapper.Contrib.Extensions.SqlMapperExtensions.IProxy);
+                var interfaceType = typeof(IProxy);
 
                 var typeBuilder = moduleBuilder.DefineType(typeOfT.Name + "_" + Guid.NewGuid(), TypeAttributes.Public | TypeAttributes.Class);
 
