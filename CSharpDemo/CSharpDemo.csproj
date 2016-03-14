@@ -55,7 +55,8 @@
     <Compile Include="Base\TestInterface.cs" />
     <Compile Include="Base\TestPlinq.cs" />
     <Compile Include="CollectionTest\CollectionTestcs.cs" />
-    <Compile Include="Data\AdoTest.cs" />
+    <Compile Include="Data\AdoDemo.cs" />
+    <Compile Include="Data\SimpleOrm.cs" />
     <Compile Include="Data\DataTest.cs" />
     <Compile Include="ExpressionTest\LambdaToSQL.cs" />
     <Compile Include="IOTest\FileHelper.cs" />

@@ -20,7 +20,7 @@ namespace CSharpDemo.Data
     {
         public DataTest()
         {
-            string connString = ConfigurationManager.ConnectionStrings["testConn"].ConnectionString;
+            string connString = ConfigurationManager.ConnectionStrings["mysqlConn"].ConnectionString;
             IDbConnection dbc = new SqlConnection();
         }
     }
