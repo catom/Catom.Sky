@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catom.Sky", "Catom.Sky\Catom.Sky.csproj", "{DC472CB9-0A65-44DA-86DB-C0F6A92273EC}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -21,11 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catom.Sky.WindowsService", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{FBAD8EB7-8059-4A60-B911-592F0DEDCE2C}"
 	ProjectSection(SolutionItems) = preProject
-		Catom.Sky.Component\Docs\Architecture_Desc.txt = Catom.Sky.Component\Docs\Architecture_Desc.txt
-		Catom.Sky.Component\Docs\ORM-description.txt = Catom.Sky.Component\Docs\ORM-description.txt
 		Orm.txt = Orm.txt
-		Catom.Sky.Component\Docs\前端学习篇.txt = Catom.Sky.Component\Docs\前端学习篇.txt
-		Catom.Sky.Component\Docs\系统架构描述.txt = Catom.Sky.Component\Docs\系统架构描述.txt
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catom.WebForm", "Catom.WebForm\Catom.WebForm.csproj", "{800CA5DF-E381-4824-80B3-2DD6EC91167C}"
