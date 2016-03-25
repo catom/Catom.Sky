@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catom.Sky.WindowsService", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{FBAD8EB7-8059-4A60-B911-592F0DEDCE2C}"
 	ProjectSection(SolutionItems) = preProject
-		Orm.txt = Orm.txt
+		Doc\Orm.txt = Doc\Orm.txt
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catom.WebForm", "Catom.WebForm\Catom.WebForm.csproj", "{800CA5DF-E381-4824-80B3-2DD6EC91167C}"
@@ -31,6 +31,31 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcDemo", "MvcDemo\MvcDemo.csproj", "{A3434956-CB80-4103-A7AE-162C400DEFA6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSocketDemo", "WebSocketDemo\WebSocketDemo.csproj", "{FA3D1254-3DC8-4700-9D50-AB0E9BF3B34B}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebSite", "http://localhost:49056", "{964AC3B8-B50E-4B8A-A6E4-39A602C861BB}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv3.0"
+		ProjectReferences = "{44c26c52-fec5-4f7a-ab73-0ba9f7da0405}|Catom.Sky.Component.dll;{7c4cee41-f5f7-4b58-ac94-72b4d573dd55}|Catom.Sky.Services.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_49056"
+		Debug.AspNetCompiler.PhysicalPath = "WebSite\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_49056\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_49056"
+		Release.AspNetCompiler.PhysicalPath = "WebSite\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_49056\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "WebSite\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiDemo", "WebApiDemo\WebApiDemo.csproj", "{76B0E6AA-D828-4620-9124-456863A07A3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -74,6 +99,14 @@ Global
 		{FA3D1254-3DC8-4700-9D50-AB0E9BF3B34B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA3D1254-3DC8-4700-9D50-AB0E9BF3B34B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA3D1254-3DC8-4700-9D50-AB0E9BF3B34B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{964AC3B8-B50E-4B8A-A6E4-39A602C861BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{964AC3B8-B50E-4B8A-A6E4-39A602C861BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{964AC3B8-B50E-4B8A-A6E4-39A602C861BB}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{964AC3B8-B50E-4B8A-A6E4-39A602C861BB}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{76B0E6AA-D828-4620-9124-456863A07A3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76B0E6AA-D828-4620-9124-456863A07A3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76B0E6AA-D828-4620-9124-456863A07A3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76B0E6AA-D828-4620-9124-456863A07A3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -43,7 +43,7 @@ namespace Catom.Sky.Web.Filters
                 }
 
                 // NTODO 写入日志
-                LogHelper.WriteLog(sb.ToString());
+                LogHelper.WriteLog(sb.ToString(),"D://");
 
                 filterContext.ExceptionHandled = true;
 
