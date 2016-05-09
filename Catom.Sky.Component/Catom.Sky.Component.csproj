@@ -65,11 +65,13 @@
     </Compile>
     <Compile Include="Data\Repo\DapperExtension.cs" />
     <Compile Include="Data\Repo\IRepository.cs" />
-    <Compile Include="Util\AppCache.cs" />
+    <Compile Include="Util\ICookie.cs" />
+    <Compile Include="Util\MyCache.cs" />
     <Compile Include="Util\ICache.cs" />
     <Compile Include="Util\IMySession.cs" />
     <Compile Include="Util\LogHelper.cs" />
     <Compile Include="Util\MemCache.cs" />
+    <Compile Include="Util\MyCookie.cs" />
     <Compile Include="Util\MySession.cs" />
     <Compile Include="Util\OCSCache.cs" />
     <Compile Include="Util\StringExtension.cs" />
