@@ -11,26 +11,27 @@ namespace CSharpDemo.IOTest
         ///  读取网站文件
         /// </summary>
         /// <param name="ossUrl"></param>
+        /// <param name="savePath"></param>
         /// <returns></returns>
-        public static bool ReadUri(string ossUrl)
+        public static bool ReadUri(string ossUrl, string savePath)
         {
             try
             {
                 // 读取 Oss 文件
-                HttpWebRequest request = (HttpWebRequest)System.Net.WebRequest.Create(ossUrl);
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                var request = (HttpWebRequest)WebRequest.Create(ossUrl);
+                var response = (HttpWebResponse)request.GetResponse();
                 var stream = response.GetResponseStream();
 
                 // 写文件
-                FileStream fileStream = File.Create("D://a.mp3");
-                byte[] buffer = new byte[1024];
-                int numReadByte = 0;
-                while ((numReadByte = stream.Read(buffer, 0, 1024)) != 0)
+                var fileStream = File.Create(savePath);
+                var buffer = new byte[1024];
+                var numReadByte = 0;
+                while (stream != null && (numReadByte = stream.Read(buffer, 0, 1024)) != 0)
                 {
                     fileStream.Write(buffer, 0, numReadByte);
                 }
                 fileStream.Close();
-                stream.Close();
+                if (stream != null) stream.Close();
             }
             catch (Exception e)
             {
