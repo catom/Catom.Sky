@@ -22,7 +22,7 @@ namespace Catom.Sky.Component.Data.Repo
         /// </summary>
         /// <param name="entity">新建的实体</param>
         /// <returns>新建后的ID</returns>
-        long Create(T entity);
+        long Insert(T entity);
 
         /// <summary>
         ///  修改一个实体

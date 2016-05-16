@@ -48,7 +48,45 @@ namespace CSharpDemo.ReflectionTest
     {
         public void Init()
         {
-            //var asm = Thread
+            // Anonymous Object
+            var obj = new { Id = 1 };
+            var type = obj.GetType();
+            var props = type.GetProperties();
+
+            //Console.WriteLine(type.Name.ToLower().Contains("anonymous"));
+            //foreach (var p in props)
+            //{
+            //    //Console.WriteLine(p.Name);
+            //    var attr = p.GetCustomAttributes(typeof(User), false);
+            //    Console.WriteLine(attr.Count());
+            //    foreach (var a in attr)
+            //    {
+            //        Console.WriteLine(a);
+            //    }
+            //}
+
+
+            // Named Class
+            // 反射获取对象的赋过值的属性
+            var user = new Book { Id = 2, Name = "" };
+            var tp = user.GetType();
+            var prps = tp.GetProperties();
+
+            var dic = new Dictionary<string, object>();
+            foreach (var p in prps)
+            {
+                var value = p.GetValue(user);
+                if (value != null)
+                {
+                    dic.Add(p.Name, value);
+                }
+            }
+
+            foreach (var pair in dic)
+            {
+                Console.WriteLine(@"属性{0}={1}", pair.Key, pair.Value);
+            }
+
         }
     }
 

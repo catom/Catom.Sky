@@ -19,14 +19,14 @@ namespace Dapper.Contrib.Extensions
     public static class SqlMapperExtensions
     {
         #region 1. 表、字段、SQL语句 容器
-        // 属性容器
+        // 属性容器（普通属性 = 主键 + 需计算属性 + 可写属性，此为自定义设计）
         private static readonly ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>> PropertyDic = new ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>>();
         // 主键容器（PK）
         private static readonly ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>> PKeyDic = new ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>>();
-        // 需计算字段容器
-        private static readonly ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>> ComputedProperties = new ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>>();
-        // 可写字段（普通字段 = 所有字段 - 主键 - 需计算字段）
-        //private static readonly ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>> WriteableProperties = new ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>>();
+        // 需计算属性容器
+        private static readonly ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>> ComputedPropertyDic = new ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>>();
+        // 可写属性
+        //private static readonly ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>> WriteablePropertyDic = new ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>>();
         // 查询语句
         private static readonly ConcurrentDictionary<RuntimeTypeHandle, string> GetQueries = new ConcurrentDictionary<RuntimeTypeHandle, string>();
         // 插入语句
@@ -38,9 +38,17 @@ namespace Dapper.Contrib.Extensions
         // 实体名
         private static readonly ConcurrentDictionary<RuntimeTypeHandle, string> TableNameDic = new ConcurrentDictionary<RuntimeTypeHandle, string>();
         // db适配器容器。键为Connection类型，如MySqlDbConnection
-        private static readonly Dictionary<string, ISqlAdapter> AdapterDic = new Dictionary<string, ISqlAdapter>() { { "mysqlconnection", new MySqlAdapter() } };
+        private static readonly Dictionary<string, ISqlAdapter> AdapterDic = new Dictionary<string, ISqlAdapter>
+        {
+            { "mysqlconnection", new MySqlAdapter() },
+            { "sqlconnection", new MsSqlAdapter() }
+        };
         // db格式容器
-        private static readonly Dictionary<string, SqlEscape> EscapeDic = new Dictionary<string, SqlEscape>() { { "mysqlconnection", new SqlEscape() { LEscape = "`", REscape = "`" } } };
+        private static readonly Dictionary<string, SqlEscape> EscapeDic = new Dictionary<string, SqlEscape>
+        {
+            { "mysqlconnection", new SqlEscape { LEscape = "`", REscape = "`" } },
+            { "sqlconnection",new SqlEscape{LEscape = "[",REscape = "]"} }
+        };
         #endregion
 
         #region 2. 属性容器的 存取
@@ -102,14 +110,14 @@ namespace Dapper.Contrib.Extensions
         private static IEnumerable<PropertyInfo> ComputedPropertiesCache(Type type)
         {
             IEnumerable<PropertyInfo> pi;
-            if (ComputedProperties.TryGetValue(type.TypeHandle, out pi))
+            if (ComputedPropertyDic.TryGetValue(type.TypeHandle, out pi))
             {
                 return pi;
             }
 
             var computedProperties = PropertyDicCache(type).Where(p => p.GetCustomAttributes(true).Any(a => a is ComputableAttribute)).ToList();
 
-            ComputedProperties[type.TypeHandle] = computedProperties;
+            ComputedPropertyDic[type.TypeHandle] = computedProperties;
             return computedProperties;
         }
 
@@ -577,7 +585,7 @@ namespace Dapper.Contrib.Extensions
         /// <param name="transaction"></param>
         /// <param name="commandTimeout"></param>
         /// <returns>写入数据所对应的ID</returns>
-        public static long Create<T>(this IDbConnection connection, T entityToInsert, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
+        public static long Insert<T>(this IDbConnection connection, T entityToInsert, IDbTransaction transaction = null, int? commandTimeout = null) where T : class
         {
             ISqlAdapter adapter = GetAdapter(connection);
             SqlEscape escape = GetEscape(connection);
@@ -593,7 +601,7 @@ namespace Dapper.Contrib.Extensions
         /// <param name="entitiesToInsert">所需插入的实体集</param>
         /// <param name="transaction"></param>
         /// <returns>所写入的数据的条数</returns>
-        public static int Create<T>(this IDbConnection connection, IEnumerable<T> entitiesToInsert, IDbTransaction transaction = null) where T : class
+        public static int Insert<T>(this IDbConnection connection, IEnumerable<T> entitiesToInsert, IDbTransaction transaction = null) where T : class
         {
             SqlEscape escape = GetEscape(connection);
             var cmd = InsertQueryFormatter(typeof(T), escape);
@@ -709,7 +717,7 @@ namespace Dapper.Contrib.Extensions
             bool IsDirty { get; set; }
         }
 
-        class ProxyGenerator
+        private class ProxyGenerator
         {
             // 实体实例容器
             private static readonly Dictionary<Type, object> TypeCache = new Dictionary<Type, object>();
@@ -784,7 +792,7 @@ namespace Dapper.Contrib.Extensions
                 var property = typeBuilder.DefineProperty("IsDirty",
                                                System.Reflection.PropertyAttributes.None,
                                                propType,
-                                               new Type[] { propType });
+                                               new[] { propType });
 
                 const MethodAttributes getSetAttr = MethodAttributes.Public | MethodAttributes.NewSlot | MethodAttributes.SpecialName |
                                                     MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.HideBySig;
@@ -794,24 +802,24 @@ namespace Dapper.Contrib.Extensions
                                              getSetAttr,
                                              propType,
                                              Type.EmptyTypes);
-                var currGetIL = currGetPropMthdBldr.GetILGenerator();
-                currGetIL.Emit(OpCodes.Ldarg_0);
-                currGetIL.Emit(OpCodes.Ldfld, field);
-                currGetIL.Emit(OpCodes.Ret);
+                var currGetIl = currGetPropMthdBldr.GetILGenerator();
+                currGetIl.Emit(OpCodes.Ldarg_0);
+                currGetIl.Emit(OpCodes.Ldfld, field);
+                currGetIl.Emit(OpCodes.Ret);
                 var currSetPropMthdBldr = typeBuilder.DefineMethod("set_" + "IsDirty",
                                              getSetAttr,
                                              null,
-                                             new Type[] { propType });
-                var currSetIL = currSetPropMthdBldr.GetILGenerator();
-                currSetIL.Emit(OpCodes.Ldarg_0);
-                currSetIL.Emit(OpCodes.Ldarg_1);
-                currSetIL.Emit(OpCodes.Stfld, field);
-                currSetIL.Emit(OpCodes.Ret);
+                                             new[] { propType });
+                var currSetIl = currSetPropMthdBldr.GetILGenerator();
+                currSetIl.Emit(OpCodes.Ldarg_0);
+                currSetIl.Emit(OpCodes.Ldarg_1);
+                currSetIl.Emit(OpCodes.Stfld, field);
+                currSetIl.Emit(OpCodes.Ret);
 
                 property.SetGetMethod(currGetPropMthdBldr);
                 property.SetSetMethod(currSetPropMthdBldr);
-                var getMethod = typeof(Dapper.Contrib.Extensions.SqlMapperExtensions.IProxy).GetMethod("get_" + "IsDirty");
-                var setMethod = typeof(Dapper.Contrib.Extensions.SqlMapperExtensions.IProxy).GetMethod("set_" + "IsDirty");
+                var getMethod = typeof(IProxy).GetMethod("get_" + "IsDirty");
+                var setMethod = typeof(IProxy).GetMethod("set_" + "IsDirty");
                 typeBuilder.DefineMethodOverride(currGetPropMthdBldr, getMethod);
                 typeBuilder.DefineMethodOverride(currSetPropMthdBldr, setMethod);
 
@@ -834,7 +842,7 @@ namespace Dapper.Contrib.Extensions
                 var property = typeBuilder.DefineProperty(propertyName,
                                                System.Reflection.PropertyAttributes.None,
                                                propType,
-                                               new Type[] { propType });
+                                               new[] { propType });
 
                 const MethodAttributes getSetAttr = MethodAttributes.Public | MethodAttributes.Virtual |
                                                     MethodAttributes.HideBySig;
@@ -845,25 +853,25 @@ namespace Dapper.Contrib.Extensions
                                              propType,
                                              Type.EmptyTypes);
 
-                var currGetIL = currGetPropMthdBldr.GetILGenerator();
-                currGetIL.Emit(OpCodes.Ldarg_0);
-                currGetIL.Emit(OpCodes.Ldfld, field);
-                currGetIL.Emit(OpCodes.Ret);
+                var currGetIl = currGetPropMthdBldr.GetILGenerator();
+                currGetIl.Emit(OpCodes.Ldarg_0);
+                currGetIl.Emit(OpCodes.Ldfld, field);
+                currGetIl.Emit(OpCodes.Ret);
 
                 var currSetPropMthdBldr = typeBuilder.DefineMethod("set_" + propertyName,
                                              getSetAttr,
                                              null,
-                                             new Type[] { propType });
+                                             new[] { propType });
 
                 //store value in private field and set the isdirty flag
-                var currSetIL = currSetPropMthdBldr.GetILGenerator();
-                currSetIL.Emit(OpCodes.Ldarg_0);
-                currSetIL.Emit(OpCodes.Ldarg_1);
-                currSetIL.Emit(OpCodes.Stfld, field);
-                currSetIL.Emit(OpCodes.Ldarg_0);
-                currSetIL.Emit(OpCodes.Ldc_I4_1);
-                currSetIL.Emit(OpCodes.Call, setIsDirtyMethod);
-                currSetIL.Emit(OpCodes.Ret);
+                var currSetIl = currSetPropMthdBldr.GetILGenerator();
+                currSetIl.Emit(OpCodes.Ldarg_0);
+                currSetIl.Emit(OpCodes.Ldarg_1);
+                currSetIl.Emit(OpCodes.Stfld, field);
+                currSetIl.Emit(OpCodes.Ldarg_0);
+                currSetIl.Emit(OpCodes.Ldc_I4_1);
+                currSetIl.Emit(OpCodes.Call, setIsDirtyMethod);
+                currSetIl.Emit(OpCodes.Ret);
 
                 //TODO: Should copy all attributes defined by the interface?
                 if (isIdentity)
@@ -894,9 +902,9 @@ namespace Dapper.Contrib.Extensions
     public class TableAttribute : Attribute
     {
         private string TbName { set; get; }
-        public TableAttribute(string TbName)
+        public TableAttribute(string tbName)
         {
-            this.TbName = TbName;
+            this.TbName = tbName;
         }
     }
 

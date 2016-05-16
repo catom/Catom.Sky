@@ -30,6 +30,7 @@ namespace CSharpDemo.Data
         {
             var arr = new[] { 1, 23, 4 };
             var query =  from a in arr select a;
+            
         }
 
     }

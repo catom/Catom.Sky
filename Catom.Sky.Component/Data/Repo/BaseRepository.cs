@@ -23,9 +23,9 @@ namespace Catom.Sky.Component.Data.Repo
             return UnitOfWork.Connection.Get<T>(where, orderby, limit);
         }
 
-        public virtual long Create(T entity)
+        public virtual long Insert(T entity)
         {
-            return UnitOfWork.Connection.Create(entity);
+            return UnitOfWork.Connection.Insert(entity);
         }
         
         public virtual bool Update(T entity)
