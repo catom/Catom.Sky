@@ -14,14 +14,14 @@ namespace Catom.Sky.Web.Security
         // 存入当前用户。
         public static void SetCurrentUser(CurrentUser user)
         {
-            var mySession = IocContainer.Instance.UnityContainer.Resolve<IMySession>();
+            var mySession = UnityBootstrapper.Instance.UnityContainer.Resolve<ISession>();
             mySession.Set("CurrUser", user);
         }
 
         // 获取当前用户。
         public static CurrentUser GetCurrentUser()
         {
-            var mySession = IocContainer.Instance.UnityContainer.Resolve<IMySession>();
+            var mySession = UnityBootstrapper.Instance.UnityContainer.Resolve<ISession>();
             var user = mySession["CurrUser"] as CurrentUser;
             return user;
         }
@@ -29,7 +29,7 @@ namespace Catom.Sky.Web.Security
         // 清除用户。
         public static void ClearUser()
         {
-            var mySession = IocContainer.Instance.UnityContainer.Resolve<IMySession>();
+            var mySession = UnityBootstrapper.Instance.UnityContainer.Resolve<ISession>();
             mySession["CurrUser"] = null;
         }
 

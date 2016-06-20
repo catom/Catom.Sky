@@ -30,7 +30,7 @@ namespace Catom.Sky.Web
 
             #region 自定义配置
             // IoC 注册
-            IocContainer.Instance.Initialise();
+            UnityBootstrapper.Instance.Initialise();
             // 日志配置
             log4net.Config.XmlConfigurator.Configure(new System.IO.FileInfo(Server.MapPath("~/log4net.config")));
 

@@ -16,7 +16,7 @@ namespace Catom.Sky.Web.Security
         public void OnAuthorization(AuthorizationContext filterContext)
         {
             // TODO auth here.
-            var mySession = IocContainer.Instance.UnityContainer.Resolve<IMySession>();
+            var mySession = UnityBootstrapper.Instance.UnityContainer.Resolve<ISession>();
             var user = mySession["CurrUser"] as CurrentUser;
             
 

@@ -944,7 +944,7 @@ namespace Dapper.Contrib.Extensions
     #region 数据库适配器
 
     /// <summary>
-    ///  SQL 字段书写时需要使用的特殊字符。<b>如 MySQL 单独使用 Order 字段会报错，需要改用 `Order`。</b>
+    ///  SQL 字段书写时需要使用的特殊字符。如 MySQL 单独使用 Order 字段会报错，需要改用 `Order`。
     /// </summary>
     public class SqlEscape
     {

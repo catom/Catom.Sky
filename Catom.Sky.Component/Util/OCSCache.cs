@@ -7,17 +7,25 @@ using Enyim.Caching;
 using Enyim.Caching.Configuration;
 using Enyim.Caching.Memcached;
 using System.Net;
+using Utility.Util;
 
 namespace Catom.Sky.Component.Util
 {
-    public class OCSCache : ICache
+    public class OcsCache : ICache
     {
         MemcachedClient MemClient = MemCached.getInstance();
         private string preFix = string.Empty;
-        public void Delete(string key)
+
+
+        public void Remove(string key)
         {
             key = preFix + key;
             MemClient.Remove(key);
+        }
+
+        public void RemoveAll()
+        {
+            throw new NotImplementedException();
         }
 
         public void Add<T>(string key, T value)
@@ -65,21 +73,31 @@ namespace Catom.Sky.Component.Util
             _Set<T>(key, value, expired);
         }
 
+        public void Set<T>(string key, T value, TimeSpan expired)
+        {
+            key = preFix + key;
+            _Set<T>(key, value, DateTime.Now.AddMinutes(expired.Minutes));
+        }
+
+        public void Set<T>(string key, T value, DateTime absoluteDateTime, TimeSpan expired)
+        {
+            key = preFix + key;
+            _Set<T>(key, value, DateTime.Now.AddMinutes(expired.Minutes));
+        }
+
         public void Set<T>(string key, T value)
         {
 
             key = preFix + key;
             _Set<T>(key, value);
         }
-
-
+        
         public T Get<T>(string key)
         {
             key = preFix + key;
             return _Get<T>(key);
         }
-
-
+        
         public T Get<T>(string key, Func<T> acquire)
         {
             key = preFix + key;
@@ -182,6 +200,7 @@ namespace Catom.Sky.Component.Util
         #endregion
 
     }
+
     public sealed class MemCached
     {
         private static MemcachedClient MemClient;

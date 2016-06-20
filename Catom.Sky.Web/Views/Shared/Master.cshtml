@@ -1,4 +1,5 @@
 ﻿@using Catom.Sky.Web.Helpers
+@using LM.Utility
 @using Microsoft.Practices.Unity
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -16,16 +17,16 @@
     }
     else
     {
-        @Html.RenderScript("/Scripts/libs/jquery/jquery-1.10.2.min.js")
+        @Html.RenderScript("/Content/js/jquery/jquery-1.10.2.min.js")
         @Html.RenderScript("/Scripts/greedyint.common.js")
-        @Html.RenderScript("/Scripts/libs/lhgdialog/lhgdialog.js")
-        @Html.RenderScript("/Scripts/libs/lhgdialog/dialog.base.js")
-        @Html.RenderScript("/Scripts/libs/jqPaginator.js")
-        @Html.RenderScript("/Scripts/libs/longreextent.js")
+        @Html.RenderScript("/Content/js/lhgdialog/lhgdialog.js")
+        @Html.RenderScript("/Content/js/lhgdialog/dialog.base.js")
+        @Html.RenderScript("/Content/js/jqPaginator.js")
+        @*@Html.RenderScript("/Content/js/longreextent.js")
         @Html.RenderScript("/Scripts/components/errormessage.js")
         @Html.RenderScript("/Scripts/components/saveconfirm.js")
         @Html.RenderScript("/Scripts/components/advancedsearch.js")
-        @Html.RenderScript("/Scripts/title/changePsd.js")
+        @Html.RenderScript("/Scripts/title/changePsd.js")*@
     }
 
     @RenderSection("Head", false)
