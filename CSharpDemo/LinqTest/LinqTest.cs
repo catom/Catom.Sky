@@ -12,7 +12,7 @@ namespace CSharpDemo.LinqTest
     {
         public long Id { get; set; }
 
-        public String Name { get; set; }
+        public string Name { get; set; }
 
         public int Age { get; set; }
 
@@ -36,7 +36,7 @@ namespace CSharpDemo.LinqTest
     ///  
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    class LinqContext<T>
+    internal class LinqContext<T>
     {
         public Stopwatch Watch;
 
@@ -109,7 +109,7 @@ namespace CSharpDemo.LinqTest
     }
 
 
-    class Entry
+    internal class Entry
     {
         public static void Run(IEnumerable<Person> data)
         {

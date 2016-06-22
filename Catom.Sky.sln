@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catom.Sky.Web", "Catom.Sky.Web\Catom.Sky.Web.csproj", "{380EFFDB-27B6-4DF3-AE7A-BCC5590AF56B}"
 EndProject
@@ -46,6 +46,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C33EF99F-5C54-441C-A65C-8C282E3B3EE2}"
 	ProjectSection(SolutionItems) = preProject
 		Doc\Orm.txt = Doc\Orm.txt
+		Catom.Sky.Web\Content\前端学习篇.txt = Catom.Sky.Web\Content\前端学习篇.txt
 	EndProjectSection
 EndProject
 Global
