@@ -176,6 +176,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithm\Bazi.cs" />
+    <Compile Include="Algorithm\Bazihehun.cs" />
+    <Compile Include="Algorithm\BirthdateInfo.cs" />
+    <Compile Include="Algorithm\Canggan.cs" />
+    <Compile Include="Algorithm\Common.cs" />
+    <Compile Include="Algorithm\Constants.cs" />
+    <Compile Include="Algorithm\Model\SolarTermInfo.cs" />
+    <Compile Include="Algorithm\Shensha.cs" />
+    <Compile Include="Algorithm\Shishen.cs" />
+    <Compile Include="Algorithm\Taohua.cs" />
+    <Compile Include="Algorithm\Wuxing.cs" />
+    <Compile Include="Algorithm\WuxingEnergy.cs" />
     <Compile Include="App_Start\AuthConfig.cs">
       <SubType>
       </SubType>
