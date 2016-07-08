@@ -176,6 +176,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithm2\Bazi.cs" />
+    <Compile Include="Algorithm2\Bazihehun.cs" />
+    <Compile Include="Algorithm2\BirthdateInfo.cs" />
+    <Compile Include="Algorithm2\Canggan.cs" />
+    <Compile Include="Algorithm2\CommonClass.cs" />
+    <Compile Include="Algorithm2\Constants.cs" />
+    <Compile Include="Algorithm2\Shensha.cs" />
+    <Compile Include="Algorithm2\Shishen.cs" />
+    <Compile Include="Algorithm2\Taohua.cs" />
+    <Compile Include="Algorithm2\TwelveGod.cs" />
+    <Compile Include="Algorithm2\Wuxing.cs" />
+    <Compile Include="Algorithm2\WuxingEnergy.cs" />
     <Compile Include="Algorithm\Bazi.cs" />
     <Compile Include="Algorithm\Bazihehun.cs" />
     <Compile Include="Algorithm\BirthdateInfo.cs" />
@@ -183,8 +195,6 @@
     <Compile Include="Algorithm\Common.cs" />
     <Compile Include="Algorithm\Constants.cs" />
     <Compile Include="Algorithm\Model\SolarTermInfo.cs" />
-    <Compile Include="Algorithm\Shensha.cs" />
-    <Compile Include="Algorithm\Shishen.cs" />
     <Compile Include="Algorithm\Taohua.cs" />
     <Compile Include="Algorithm\Wuxing.cs" />
     <Compile Include="Algorithm\WuxingEnergy.cs" />

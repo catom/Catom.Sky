@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Algorithm;
 
-namespace Algorithm
+namespace Algorithm1
 {
     /// <summary>
     /// Bazihehun 的摘要说明

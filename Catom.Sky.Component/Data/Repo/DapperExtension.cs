@@ -18,7 +18,7 @@ namespace Dapper.Contrib.Extensions
     /// </summary>
     public static class SqlMapperExtensions
     {
-        #region 1. 表、字段、SQL语句 容器
+        #region 1. 表、字段、SQL语句缓存
         // 属性容器（普通属性 = 主键 + 需计算属性 + 可写属性，此为自定义设计）
         private static readonly ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>> PropertyDic = new ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>>();
         // 主键容器（PK）
