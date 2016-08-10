@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 
-namespace ForTestMvc.Controllers
+namespace MvcDemo.Controllers
 {
     public class HomeController : Controller
     {
-        /// <summary>
-        /// <see cref="ForTestMvc.Controllers.AccountController.Login"/>
-        /// </summary>
-        /// <returns></returns>
         public ActionResult Index()
         {
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
